@@ -5,7 +5,7 @@
 		<script type="text/javascript" src="jquery.js"></script>
 		<script>
 			$(document).ready(function () {
-				$.getJSON('/stop.json?stop=1001624', function (data) {
+				$.getJSON('/stop.json', function (data) {
 					for(var i = 0; i < data.Predictions.length; i++) {
 						var pre = data.Predictions[i];
 						console.log(pre);
