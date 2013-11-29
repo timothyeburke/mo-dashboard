@@ -19,6 +19,9 @@ var module = (function () {
 		
 		$('#' + data.id).remove();
 
+		data.StopName = data.StopName.replace(/Ne/g, 'NE');
+		data.StopName = data.StopName.replace(/\+/g, '&amp;');
+
 		var transitTemplate = $("#transit").clone();
 		transitTemplate.attr('id', data.id);
 		transitTemplate.find('h2').html(data.StopName);
