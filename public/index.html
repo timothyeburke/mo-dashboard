@@ -1,42 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
-
+		<meta name="viewport" content="initial-scale=1">
+		<link href="style/style.css" rel="stylesheet" />
 		<script type="text/javascript" src="jquery.js"></script>
-		<script>
-			$(document).ready(function () {
-				$.getJSON('/stop.json', function (data) {
-					var north = data.north;
-					var south = data.south;
-
-					var predictions = predictions || [];
-					predictions.length = 0;
-
-					for (var i = 0; i < north.Predictions.length; i++) {
-						predictions.push(north.Predictions[i]);
-					}
-					for (var i = 0; i < south.Predictions.length; i++) {
-						predictions.push(south.Predictions[i]);
-					}
-					predictions.sort(function (a,b) {
-						if (a.Minutes < b.Minutes) return -1;
-						if (a.Minutes > b.Minutes) return  1;
-						return 0;
-					});
-					var output = "";
-					for (var i = 0; i < predictions.length; i++) {
-						var pred = predictions[i];
-						output += "<tr><td>" + pred.RouteID + "</td>";
-						output += "<td>" + pred.DirectionText + "</td>";
-						output += "<td>" + pred.Minutes + " Minutes</td></tr>";
-					}
-					$('#predictions').html(output);
-				});
-			});
-		</script>
+		<script type="text/javascript" src="js/client.js"></script>
 	</head>
 	<body>
-		<div>
+		<h1>Metropolitan Overlook Transit Info</h1>
+		<span id="transit" class="transit template">
+			<h2></h2>
 			<table>
 				<thead>
 					<tr>
@@ -45,8 +18,8 @@
 						<td>Estimate</td>
 					</tr>
 				</thead>
-				<tbody id="predictions"></tbody>
+				<tbody class="predictions"></tbody>
 			</table>
-		</div>
+		</span>
 	</body>
 </html>
