@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+
+		<script type="text/javascript" src="jquery.js"></script>
+		<script>
+			$(document).ready(function () {
+				$.getJSON('/bus.json?stop=1001624', function (data) {
+					for(var i = 0; i < data.Predictions.length; i++) {
+						var pre = data.Predictions[i];
+						console.log(pre);
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>
