@@ -13,48 +13,76 @@ var stopData = {
 	north: { 
 		Predictions: [], 
 		StopName: ""
-	}
+	},
+	incidents: []
 };
 
-var fetch = function (stop, direction) {
+var getPredictions = function () {
+	var fetchPredictions = function (stop, direction) {
+		var options = {
+			hostname: 'api.wmata.com',
+			port: 80,
+			path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + key,
+			method: 'GET'
+		};
+		var request = http.request(options, function(response) {
+			response.on('data', function (data) {
+				try {
+					stopData[direction] = JSON.parse(data);
+				} catch (err) {
+					console.log(err);
+					stopData[direction] = {
+						Predictions: [],
+						StopName: "Error fetching data."
+					}
+				}
+			});
+			response.on('error', function () {
+				stopData[direction] = {
+					Predictions: [],
+					StopName: "Error fetching data."
+				}
+			});
+		});
+		request.end();
+	};
+	fetchPredictions(1001624, "south"); 
+	fetchPredictions(1001620, "north");
+};
+
+// First time
+getPredictions();
+
+// Then every minute
+setInterval(getPredictions, 1000 * 60); 
+
+var getIncidents = function () {
 	var options = {
 		hostname: 'api.wmata.com',
 		port: 80,
-		path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + key,
+		path: '/Incidents.svc/json/Incidents?' + key,
 		method: 'GET'
 	};
 	var request = http.request(options, function(response) {
 		response.on('data', function (data) {
 			try {
-				stopData[direction] = JSON.parse(data);
+				stopData.incidents = JSON.parse(data).Incidents;
 			} catch (err) {
+				console.log(data.toString());
 				console.log(err);
-				stopData[direction] = {
-					Predictions: [],
-					StopName: "Error fetching data."
-				}
+				stopData.incidents = [];
 			}
 		});
 		response.on('error', function () {
-			stopData[direction] = {
-				Predictions: [],
-				StopName: "Error fetching data."
-			}
+			stopData.incidents = []
 		});
 	});
 	request.end();
 };
 
-var getData = function () {
-	fetch(1001624, "south"); 
-	fetch(1001620, "north");
-};
+getIncidents();
 
-// First time
-getData();
-
-// Then every minute
-setInterval(getData, 1000 * 60); 
+//setInterval(getIncidents, 1000 * 60 * 5);
 
 // simple logger
 app.use(function(req, res, next){
@@ -66,7 +94,7 @@ app.use(function(req, res, next){
 app.use(express.static(__dirname + '/public'));
 
 // Stop JSON REST endpoint
-app.get('/stop.json', function (req, res) {
+app.get('/data.json', function (req, res) {
 	res.contentType('application/json');
 	res.send(stopData);
 });

@@ -5,13 +5,30 @@ var module = (function () {
 	});
 
 	var fetch = function () {
-		$.getJSON('/stop.json', function (data) {
+		$.getJSON('/data.json', function (data) {
 			var north = data.north;
 			var south = data.south;
+			var incidents = data.incidents;
 
 			displayTransit(south);
 			displayTransit(north);
+			displayIncidents(incidents);
 		});
+	};
+
+	var displayIncidents = function (data) {
+		var $incidents = $('#incidents');
+		if (data.length == 0) {
+			$incidents.hide();
+			return;
+		} else {
+			$incidents.show();
+			var output = "<h2>Metro Incidents</h2>";
+			for(var i = 0; i < data.length; i++) {
+				output += "<div>" + data[i].Description + "</div>";
+			}
+			$incidents.html(output);
+		}
 	};
 
 	var displayTransit = function (data) {
