@@ -5,13 +5,18 @@ var app     = express();
 
 var key = '&api_key=d46qgb277rn9hq8q8emvqyfr';
 
-var stopData = { 
-	Predictions: [], 
-	StopName: ""
+var stopData = {
+	south: { 
+		Predictions: [], 
+		StopName: ""
+	},
+	north: { 
+		Predictions: [], 
+		StopName: ""
+	}
 };
 
-var getData = function () {
-	var stop = 1001624;
+var getData = function (stop, direction) {
 	var options = {
 		hostname: 'api.wmata.com',
 		port: 80,
@@ -21,17 +26,17 @@ var getData = function () {
 	var request = http.request(options, function(response) {
 		response.on('data', function (data) {
 			try {
-				stopData = JSON.parse(data);
+				stopData[direction] = JSON.parse(data);
 			} catch (err) {
 				console.log(err);
-				stopData = {
+				stopData[direction] = {
 					Predictions: [],
 					StopName: "Error fetching data."
 				}
 			}
 		});
 		response.on('error', function () {
-			stopData = {
+			stopData[direction] = {
 				Predictions: [],
 				StopName: "Error fetching data."
 			}
@@ -40,8 +45,15 @@ var getData = function () {
 	request.end();
 };
 
-getData(); // First time
-setInterval(getData, 1000 * 60); // Then every minute
+// First time
+getData(1001624, "south"); 
+getData(1001620, "north");
+
+// Then every minute
+setInterval(function () {
+	getData(1001624, "south");
+	getData(1001620, "north");
+}, 1000 * 60); 
 
 // simple logger
 app.use(function(req, res, next){
