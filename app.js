@@ -16,7 +16,7 @@ var stopData = {
 	}
 };
 
-var getData = function (stop, direction) {
+var fetch = function (stop, direction) {
 	var options = {
 		hostname: 'api.wmata.com',
 		port: 80,
@@ -45,15 +45,16 @@ var getData = function (stop, direction) {
 	request.end();
 };
 
+var getData = function () {
+	fetch(1001624, "south"); 
+	fetch(1001620, "north");
+};
+
 // First time
-getData(1001624, "south"); 
-getData(1001620, "north");
+getData();
 
 // Then every minute
-setInterval(function () {
-	getData(1001624, "south");
-	getData(1001620, "north");
-}, 1000 * 60); 
+setInterval(getData, 1000 * 60); 
 
 // simple logger
 app.use(function(req, res, next){
