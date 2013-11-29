@@ -82,7 +82,7 @@ var getIncidents = function () {
 
 getIncidents();
 
-//setInterval(getIncidents, 1000 * 60 * 5);
+setInterval(getIncidents, 1000 * 60 * 5);
 
 // simple logger
 app.use(function(req, res, next){
