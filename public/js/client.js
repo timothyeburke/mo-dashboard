@@ -49,7 +49,7 @@ var module = (function () {
 			var pred = data.Predictions[i];
 			output += "<tr><td>" + pred.RouteID + "</td>";
 			output += "<td>" + pred.DirectionText + "</td>";
-			output += "<td>" + pred.Minutes + " Minutes</td></tr>";
+			output += "<td>" + pred.Minutes + " Min</td></tr>";
 		}
 		transitTemplate.find('.predictions').html(output);
 		$('body').append(transitTemplate);
