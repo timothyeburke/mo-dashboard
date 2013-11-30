@@ -93,6 +93,12 @@ app.use(function(req, res, next){
 // Static files
 app.use(express.static(__dirname + '/public'));
 
+// ADD GLOBAL ERROR HANDLER HERE
+app.use(function(err, req, res, next){
+	console.error(err.stack);
+	res.send(500, 'Something broke!');
+});
+
 // Stop JSON REST endpoint
 app.get('/data.json', function (req, res) {
 	res.contentType('application/json');
