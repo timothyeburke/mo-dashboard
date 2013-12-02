@@ -39,10 +39,12 @@ module.exports = function (app) {
 				path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + bus_key,
 				method: 'GET'
 			};
-			var request = http.request(options, function(response) {
+			var temp = '';
+			var request = http.get(options, function(response) {
 				response.on('data', function (data) {
 					try {
-						stopData[direction] = JSON.parse(data);
+						temp += data;
+						stopData[direction] = JSON.parse(temp);
 					} catch (err) {
 						console.log(err);
 						stopData[direction] = errorObject;
@@ -74,12 +76,13 @@ module.exports = function (app) {
 			path: '/Incidents.svc/json/Incidents?' + default_key,
 			method: 'GET'
 		};
-		var request = http.request(options, function(response) {
+		var temp = '';
+		var request = http.get(options, function(response) {
 			response.on('data', function (data) {
 				try {
-					stopData.incidents = JSON.parse(data).Incidents;
+					temp += data;
+					stopData.incidents = JSON.parse(temp).Incidents;
 				} catch (err) {
-					console.log(data.toString());
 					console.log(err);
 					stopData.incidents = [];
 				}
@@ -130,10 +133,12 @@ module.exports = function (app) {
 				path: '/StationPrediction.svc/json/GetPrediction/' + station + '?' + train_key,
 				method: 'GET'
 			};
-			var request = http.request(options, function(response) {
+			var temp = '';
+			var request = http.get(options, function(response) {
 				response.on('data', function (data) {
 					try {
-						stopData[station].Predictions = JSON.parse(data).Trains;
+						temp += data;
+						stopData[station].Predictions = JSON.parse(temp).Trains;
 					} catch (err) {
 						console.log(err);
 						stopData[station].Predictions = [];
@@ -153,7 +158,7 @@ module.exports = function (app) {
 	getTrainPredictions();
 
 	// Then every minute
-	setInterval(getTrainPredictions, 1000 * 60); 
+	setInterval(getTrainPredictions, 1000 * 15);
 
 	// Stop JSON REST endpoint
 	app.get('/data.json', function (req, res) {

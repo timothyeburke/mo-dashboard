@@ -83,7 +83,7 @@ var module = (function () {
 		var output = "";
 		for (var i = 0; i < data.Predictions.length; i++) {
 			var pred = data.Predictions[i];
-			if (pred.DestinationCode) {
+			if (pred.DestinationCode && pred.Min) {
 				output += "<tr><td>" + pred.Line + "</td>";
 				output += "<td>" + pred.DestinationName + "</td>";
 				if (isNaN(parseInt(pred.Min))) {
