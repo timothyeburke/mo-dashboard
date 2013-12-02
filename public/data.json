@@ -1,0 +1,198 @@
+{
+  "south": {
+    "Predictions": [
+      {
+        "DirectionNum": "0",
+        "DirectionText": "South to Anacostia Station",
+        "Minutes": 0,
+        "RouteID": "P6",
+        "VehicleID": "2529"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "South to Anacostia Station",
+        "Minutes": 36,
+        "RouteID": "P6",
+        "VehicleID": "2638"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "South to Anacostia Station",
+        "Minutes": 71,
+        "RouteID": "P6",
+        "VehicleID": "2557"
+      }
+    ],
+    "StopName": "2nd St Ne + T St Ne"
+  },
+  "north": {
+    "Predictions": [
+      {
+        "DirectionNum": "1",
+        "DirectionText": "North to Rhode Island Ave Station",
+        "Minutes": 1,
+        "RouteID": "P6",
+        "VehicleID": "2638"
+      },
+      {
+        "DirectionNum": "1",
+        "DirectionText": "North to Rhode Island Ave Station",
+        "Minutes": 26,
+        "RouteID": "P6",
+        "VehicleID": "2557"
+      },
+      {
+        "DirectionNum": "1",
+        "DirectionText": "North to Rhode Island Ave Station",
+        "Minutes": 82,
+        "RouteID": "P6",
+        "VehicleID": "2529"
+      }
+    ],
+    "StopName": "3rd St Ne + Seaton Pl Ne"
+  },
+  "B35": {
+    "Predictions": [
+      {
+        "Car": "6",
+        "Destination": "Glenmont",
+        "DestinationCode": "B11",
+        "DestinationName": "Glenmont",
+        "Group": "1",
+        "Line": "RD",
+        "LocationCode": "B35",
+        "LocationName": "New York Avenue",
+        "Min": "BRD"
+      },
+      {
+        "Car": "6",
+        "Destination": "Shady Gr",
+        "DestinationCode": "A15",
+        "DestinationName": "Shady Grove",
+        "Group": "2",
+        "Line": "RD",
+        "LocationCode": "B35",
+        "LocationName": "New York Avenue",
+        "Min": "7"
+      },
+      {
+        "Car": "6",
+        "Destination": "SilvrSpg",
+        "DestinationCode": "B08",
+        "DestinationName": "Silver Spring",
+        "Group": "1",
+        "Line": "RD",
+        "LocationCode": "B35",
+        "LocationName": "New York Avenue",
+        "Min": "9"
+      },
+      {
+        "Car": "",
+        "Destination": "No Passenger",
+        "DestinationCode": null,
+        "DestinationName": "No Passenger",
+        "Group": "1",
+        "Line": "No",
+        "LocationCode": "B35",
+        "LocationName": "New York Avenue",
+        "Min": "11"
+      },
+      {
+        "Car": "6",
+        "Destination": "Shady Gr",
+        "DestinationCode": "A15",
+        "DestinationName": "Shady Grove",
+        "Group": "2",
+        "Line": "RD",
+        "LocationCode": "B35",
+        "LocationName": "New York Avenue",
+        "Min": "14"
+      },
+      {
+        "Car": "",
+        "Destination": "",
+        "DestinationCode": null,
+        "DestinationName": "",
+        "Group": "2",
+        "Line": "",
+        "LocationCode": "B35",
+        "LocationName": "New York Avenue",
+        "Min": ""
+      }
+    ],
+    "StationName": "New York Ave"
+  },
+  "B04": {
+    "Predictions": [
+      {
+        "Car": "6",
+        "Destination": "Glenmont",
+        "DestinationCode": "B11",
+        "DestinationName": "Glenmont",
+        "Group": "1",
+        "Line": "RD",
+        "LocationCode": "B04",
+        "LocationName": "Rhode Island Avenue",
+        "Min": "2"
+      },
+      {
+        "Car": "6",
+        "Destination": "Shady Gr",
+        "DestinationCode": "A15",
+        "DestinationName": "Shady Grove",
+        "Group": "2",
+        "Line": "RD",
+        "LocationCode": "B04",
+        "LocationName": "Rhode Island Avenue",
+        "Min": "5"
+      },
+      {
+        "Car": "6",
+        "Destination": "SilvrSpg",
+        "DestinationCode": "B08",
+        "DestinationName": "Silver Spring",
+        "Group": "1",
+        "Line": "RD",
+        "LocationCode": "B04",
+        "LocationName": "Rhode Island Avenue",
+        "Min": "11"
+      },
+      {
+        "Car": "6",
+        "Destination": "Shady Gr",
+        "DestinationCode": "A15",
+        "DestinationName": "Shady Grove",
+        "Group": "2",
+        "Line": "RD",
+        "LocationCode": "B04",
+        "LocationName": "Rhode Island Avenue",
+        "Min": "12"
+      },
+      {
+        "Car": "",
+        "Destination": "No Passenger",
+        "DestinationCode": null,
+        "DestinationName": "No Passenger",
+        "Group": "1",
+        "Line": "No",
+        "LocationCode": "B04",
+        "LocationName": "Rhode Island Avenue",
+        "Min": "13"
+      },
+      {
+        "Car": "",
+        "Destination": "",
+        "DestinationCode": null,
+        "DestinationName": "",
+        "Group": "2",
+        "Line": "",
+        "LocationCode": "B04",
+        "LocationName": "Rhode Island Avenue",
+        "Min": ""
+      }
+    ],
+    "StationName": "Rhode Island Ave"
+  },
+  "incidents": [],
+  "weather": {}
+}
