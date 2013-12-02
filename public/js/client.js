@@ -6,19 +6,30 @@ var module = (function () {
 
 	var fetch = function () {
 		$.getJSON('/data.json', function (data) {
-			var north = data.north;
-			var south = data.south;
 			var incidents = data.incidents;
+			var north     = data.north;
+			var south     = data.south;
+			var weather   = data.weather;
+			var NY_ave    = data.B35;
+			var RI_ave    = data.B04;
 
-			displayTransit(south);
-			displayTransit(north);
+			// Incidents fixed at top
 			displayIncidents(incidents);
+
+			// These will display in the order they are entered here
+			displayBusInfo(south);
+			displayBusInfo(north);
+
+			displayTrainInfo(NY_ave);
+			displayTrainInfo(RI_ave);
+
+			// displayWeather(weather);
 		});
 	};
 
 	var displayIncidents = function (data) {
 		var $incidents = $('#incidents');
-		if (data.length == 0) {
+		if (data == undefined || data.length == 0) {
 			$incidents.hide();
 			return;
 		} else {
@@ -31,19 +42,20 @@ var module = (function () {
 		}
 	};
 
-	var displayTransit = function (data) {
+	var displayBusInfo = function (data) {
 		data.id = data.StopName.replace(/ /g, '_').replace(/\+/g, '');
-		
-		$('#' + data.id).remove();
-
 		data.StopName = data.StopName.replace(/Ne/g, 'NE');
 		data.StopName = data.StopName.replace(/\+/g, '&amp;');
 
-		var transitTemplate = $("#transit").clone();
-		transitTemplate.attr('id', data.id);
-		transitTemplate.find('h2').html(data.StopName);
-		transitTemplate.removeClass('template');
-		
+		var transitTemplate = $('#' + data.id);
+		if (!transitTemplate.length) {
+			transitTemplate = $("#transit").clone();
+			transitTemplate.attr('id', data.id);
+			transitTemplate.find('h2').html(data.StopName);
+			transitTemplate.removeClass('template');
+			$('body').append(transitTemplate);
+		}
+
 		var output = "";
 		for (var i = 0; i < data.Predictions.length; i++) {
 			var pred = data.Predictions[i];
@@ -52,6 +64,38 @@ var module = (function () {
 			output += "<td>" + pred.Minutes + " Min</td></tr>";
 		}
 		transitTemplate.find('.predictions').html(output);
-		$('body').append(transitTemplate);
 	};
+
+	var displayTrainInfo = function (data) {
+		data.id = data.StationName.replace(/ /g, '_').replace(/\+/g, '');
+
+		var transitTemplate = $('#' + data.id);
+		if (!transitTemplate.length) {
+			transitTemplate = $("#transit").clone();
+			transitTemplate.attr('id', data.id);
+			transitTemplate.find('h2').html(data.StationName);
+			transitTemplate.removeClass('template');
+			transitTemplate.html(transitTemplate.html().replace('Route', 'Line'));
+			transitTemplate.html(transitTemplate.html().replace('Direction', 'Destination'));
+			$('body').append(transitTemplate);
+		}
+
+		var output = "";
+		for (var i = 0; i < data.Predictions.length; i++) {
+			var pred = data.Predictions[i];
+			if (pred.DestinationCode) {
+				output += "<tr><td>" + pred.Line + "</td>";
+				output += "<td>" + pred.DestinationName + "</td>";
+				if (isNaN(parseInt(pred.Min))) {
+					output += "<td>" + pred.Min + "</td></tr>";
+				} else {
+					output += "<td>" + pred.Min + " Min</td></tr>";
+				}
+				
+			}
+		}
+		transitTemplate.find('.predictions').html(output);
+	};
+
+
 })();

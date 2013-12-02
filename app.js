@@ -1,9 +1,6 @@
 var express = require('express');
-var http    = require('http');
-
 var app     = express();
-
-var rest = require('./resources/rest')(app);
+var rest    = require('./resources/rest')(app);
 
 // simple logger
 app.use(function(req, res, next){
@@ -18,12 +15,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(function(err, req, res, next){
 	console.error(err.stack);
 	res.send(500, 'Something broke!');
-});
-
-// Stop JSON REST endpoint
-app.get('/data.json', function (req, res) {
-	res.contentType('application/json');
-	res.send(stopData);
 });
 
 var port = process.env.PORT || 3000;

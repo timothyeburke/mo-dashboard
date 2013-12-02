@@ -1,7 +1,10 @@
-var http    = require('http');
+var http     = require('http');
+var Forecast = require('forecast.io');
 
 module.exports = function (app) {
-	var key = '&api_key=d46qgb277rn9hq8q8emvqyfr';
+	var default_key = '&api_key=d46qgb277rn9hq8q8emvqyfr';
+	var train_key = default_key || '&api_key=nhc5bsanvc3b565fytmb5bz2';
+	var bus_key = default_key || '&api_key=9kcrbzzhv34vpgb4pecb6g5n';
 
 	var stopData = {
 		south: { 
@@ -25,11 +28,15 @@ module.exports = function (app) {
 	};
 
 	var getBusPredictions = function () {
+		var errorObject = {
+			Predictions: [],
+			StopName: "Error fetching data."
+		};
 		var fetchPredictions = function (stop, direction) {
 			var options = {
 				hostname: 'api.wmata.com',
 				port: 80,
-				path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + key,
+				path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + bus_key,
 				method: 'GET'
 			};
 			var request = http.request(options, function(response) {
@@ -38,17 +45,14 @@ module.exports = function (app) {
 						stopData[direction] = JSON.parse(data);
 					} catch (err) {
 						console.log(err);
-						stopData[direction] = {
-							Predictions: [],
-							StopName: "Error fetching data."
-						}
+						stopData[direction] = errorObject;
 					}
+					if (stopData[direction] == undefined) {
+					stopData.incidents = errorObject;
+				}
 				});
 				response.on('error', function () {
-					stopData[direction] = {
-						Predictions: [],
-						StopName: "Error fetching data."
-					}
+					stopData[direction] = errorObject;
 				});
 			});
 			request.end();
@@ -61,13 +65,13 @@ module.exports = function (app) {
 	getBusPredictions();
 
 	// Then every minute
-	setInterval(getBusPredictions, 1000 * 60); 
+	setInterval(getBusPredictions, 1000 * 15); 
 
 	var getIncidents = function () {
 		var options = {
 			hostname: 'api.wmata.com',
 			port: 80,
-			path: '/Incidents.svc/json/Incidents?' + key,
+			path: '/Incidents.svc/json/Incidents?' + default_key,
 			method: 'GET'
 		};
 		var request = http.request(options, function(response) {
@@ -77,6 +81,9 @@ module.exports = function (app) {
 				} catch (err) {
 					console.log(data.toString());
 					console.log(err);
+					stopData.incidents = [];
+				}
+				if (stopData.incidents == undefined) {
 					stopData.incidents = [];
 				}
 			});
@@ -92,19 +99,35 @@ module.exports = function (app) {
 	setInterval(getIncidents, 1000 * 60 * 5);
 
 	var getWeather = function () {
+		var lon = -77.0033354;
+		var lat =  38.9152131;
+		var forecast_key = '2cb1727e2157365c87d67c621ec1bf43';
+
+		var forecast = new Forecast({
+			APIKey: forecast_key
+		});
+
+		forecast.get(lat, lon, function (err, res, data) {
+			if (err) {
+				console.log(err);
+				stopData.weather = {};
+			}
+			stopData.weather = data;
+		});
+
 
 	};
 
-	getWeather();
+	// getWeather();
 
-	setInterval(getWeather, 1000 * 60 * 10);
+	// setInterval(getWeather, 1000 * 60 * 10);
 
 	var getTrainPredictions = function () {
 		var fetchPredictions = function (station) {
 			var options = {
 				hostname: 'api.wmata.com',
 				port: 80,
-				path: '/StationPrediction.svc/json/GetPrediction/' + station + '?' + key,
+				path: '/StationPrediction.svc/json/GetPrediction/' + station + '?' + train_key,
 				method: 'GET'
 			};
 			var request = http.request(options, function(response) {
