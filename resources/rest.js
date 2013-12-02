@@ -1,5 +1,5 @@
 var http     = require('http');
-var Forecast = require('forecast.io');
+// var Forecast = require('forecast.io');
 
 module.exports = function (app) {
 	var default_key = '&api_key=d46qgb277rn9hq8q8emvqyfr';
@@ -101,25 +101,23 @@ module.exports = function (app) {
 
 	setInterval(getIncidents, 1000 * 60 * 5);
 
-	var getWeather = function () {
-		var lon = -77.0033354;
-		var lat =  38.9152131;
-		var forecast_key = '2cb1727e2157365c87d67c621ec1bf43';
+	// var getWeather = function () {
+	// 	var lon = -77.0033354;
+	// 	var lat =  38.9152131;
+	// 	var forecast_key = '2cb1727e2157365c87d67c621ec1bf43';
 
-		var forecast = new Forecast({
-			APIKey: forecast_key
-		});
+	// 	var forecast = new Forecast({
+	// 		APIKey: forecast_key
+	// 	});
 
-		forecast.get(lat, lon, function (err, res, data) {
-			if (err) {
-				console.log(err);
-				stopData.weather = {};
-			}
-			stopData.weather = data;
-		});
-
-
-	};
+	// 	forecast.get(lat, lon, function (err, res, data) {
+	// 		if (err) {
+	// 			console.log(err);
+	// 			stopData.weather = {};
+	// 		}
+	// 		stopData.weather = data;
+	// 	});
+	// };
 
 	// getWeather();
 
