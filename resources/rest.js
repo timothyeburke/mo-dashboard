@@ -3,8 +3,8 @@ var Forecast = require('forecast.io');
 
 module.exports = function (app) {
 	var default_key = '&api_key=d46qgb277rn9hq8q8emvqyfr';
-	var train_key = default_key || '&api_key=nhc5bsanvc3b565fytmb5bz2';
-	var bus_key = default_key || '&api_key=9kcrbzzhv34vpgb4pecb6g5n';
+	var train_key = '&api_key=nhc5bsanvc3b565fytmb5bz2';
+	var bus_key = '&api_key=9kcrbzzhv34vpgb4pecb6g5n';
 
 	var stopData = {
 		south: { 
