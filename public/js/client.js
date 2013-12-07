@@ -36,7 +36,7 @@ var module = (function () {
 			$incidents.show();
 			var output = "<h2>Metro Incidents</h2>";
 			for(var i = 0; i < data.length; i++) {
-				output += "<div>" + data[i].Description + "</div>";
+				output += "<div class='incident'>" + data[i].Description + "</div>";
 			}
 			$incidents.html(output);
 		}
