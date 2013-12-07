@@ -2,6 +2,10 @@ var module = (function () {
 	$(document).ready(function () {
 		fetch();
 		setInterval(fetch, 5000);
+
+		setTimeout(function () {
+			window.location.reload();
+		}, 1000 * 60 * 15);
 	});
 
 	var fetch = function () {
