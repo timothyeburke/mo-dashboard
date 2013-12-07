@@ -57,7 +57,7 @@ var module = (function () {
 			transitTemplate.attr('id', data.id);
 			transitTemplate.find('h2').html(data.StopName);
 			transitTemplate.removeClass('template');
-			$('body').append(transitTemplate);
+			$('#transit-container').append(transitTemplate);
 		}
 
 		var output = "";
@@ -81,7 +81,7 @@ var module = (function () {
 			transitTemplate.removeClass('template');
 			transitTemplate.html(transitTemplate.html().replace('Route', 'Line'));
 			transitTemplate.html(transitTemplate.html().replace('Direction', 'Destination'));
-			$('body').append(transitTemplate);
+			$('#transit-container').append(transitTemplate);
 		}
 
 		var output = "";
