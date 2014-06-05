@@ -1,0 +1,45 @@
+@import "normalize";
+
+@import "color";
+@import "mixins";
+@import "fonts-base";
+// @import "fonts-extended";
+@import "ringtail-icons-2.0";
+@import "grid";
+@import "bits";
+@import "buttons";
+
+@import "base";
+
+// Create new Scss stylesheets and include them below.
+// Try to make them as reusable and descriptive as possible.
+
+#main-header {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	height: 160px;
+	padding: 30px;
+	background-color: black;
+
+	img {
+		height: 100px;
+		width: auto;
+		float: left;
+	}
+
+	#clock {
+		height: 100px;
+		width: 70%;
+		float: right;
+		color: white;
+		font-size: 10rem;
+		line-height: 100px;
+		text-align: right;
+	}
+}
+
+body {
+	background-color: darken($dark-grey, 20%);
+}
