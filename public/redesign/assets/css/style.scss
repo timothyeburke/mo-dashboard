@@ -14,32 +14,66 @@
 // Create new Scss stylesheets and include them below.
 // Try to make them as reusable and descriptive as possible.
 
+$header-row-content-height: 100px;
+$header-row-padding:         30px;
+$header-row-height:         160px;
+
+$MOdarkGrey:  rgb(70,70,70);
+$MOlightGrey: rgb(129,131,134);
+$MOyellow:    rgb(196,148,47);
+
+header {
+	height: $header-row-height;
+	padding: $header-row-padding;
+	background-color: black;
+}
+
 #main-header {
 	position: absolute;
 	top: 0px;
 	right: 0px;
 	left: 0px;
-	height: 160px;
-	padding: 30px;
-	background-color: black;
-
+	z-index: 10;
 	img {
-		height: 100px;
+		height: $header-row-content-height;
 		width: auto;
 		float: left;
 	}
 
 	#clock {
-		height: 100px;
-		width: 70%;
+		height: $header-row-content-height;
 		float: right;
 		color: white;
-		font-size: 10rem;
-		line-height: 100px;
+		font-size: 7.5rem;
+		line-height: $header-row-content-height;
 		text-align: right;
 	}
 }
 
+#incidents {
+	width: 100%;
+	
+	background-color: $MOyellow;
+
+	.label {
+		vertical-align: top;
+		display: inline-block;
+		padding: $header-row-padding;
+		width: percentage(1/6);
+		font-size: 3rem;
+	}
+
+	.container {
+		display: inline-block;
+		padding: $header-row-padding;
+		width: percentage(4/6);
+		font-size: 2rem;
+		line-height: 30px;
+	}
+}
+
+
+
 body {
-	background-color: darken($dark-grey, 20%);
+	background-color: $MOdarkGrey;
 }

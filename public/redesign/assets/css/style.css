@@ -1492,26 +1492,44 @@ p {
     p a:hover {
       border-bottom: 2px solid #0090cb; }
 
+header {
+  height: 160px;
+  padding: 30px;
+  background-color: black; }
+
 #main-header {
   position: absolute;
   top: 0px;
   right: 0px;
   left: 0px;
-  height: 160px;
-  padding: 30px;
-  background-color: black; }
+  z-index: 10; }
   #main-header img {
     height: 100px;
     width: auto;
     float: left; }
   #main-header #clock {
     height: 100px;
-    width: 70%;
     float: right;
     color: white;
-    font-size: 10rem;
+    font-size: 7.5rem;
     line-height: 100px;
     text-align: right; }
 
+#incidents {
+  width: 100%;
+  background-color: #c4942f; }
+  #incidents .label {
+    vertical-align: top;
+    display: inline-block;
+    padding: 30px;
+    width: 16.66667%;
+    font-size: 3rem; }
+  #incidents .container {
+    display: inline-block;
+    padding: 30px;
+    width: 66.66667%;
+    font-size: 2rem;
+    line-height: 30px; }
+
 body {
-  background-color: #333333; }
+  background-color: #464646; }
