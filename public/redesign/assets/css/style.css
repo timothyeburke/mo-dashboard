@@ -1513,7 +1513,8 @@ header {
     color: white;
     font-size: 7.5rem;
     line-height: 100px;
-    text-align: right; }
+    text-align: right;
+    font-family: 'Fjalla One', sans-serif; }
 
 #incidents {
   width: 100%;

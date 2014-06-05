@@ -14,6 +14,8 @@
 // Create new Scss stylesheets and include them below.
 // Try to make them as reusable and descriptive as possible.
 
+
+
 $header-row-content-height: 100px;
 $header-row-padding:         30px;
 $header-row-height:         160px;
@@ -47,6 +49,7 @@ header {
 		font-size: 7.5rem;
 		line-height: $header-row-content-height;
 		text-align: right;
+		font-family: 'Fjalla One', sans-serif;
 	}
 }
 
@@ -61,6 +64,7 @@ header {
 		padding: $header-row-padding;
 		width: percentage(1/6);
 		font-size: 3rem;
+
 	}
 
 	.container {
@@ -76,4 +80,5 @@ header {
 
 body {
 	background-color: $MOdarkGrey;
+
 }
