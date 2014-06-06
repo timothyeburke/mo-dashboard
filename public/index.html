@@ -30,7 +30,7 @@
 				<div class="entry" ng-repeat="bus in busses">
 					<span class="entry-title">{{bus.StopName}}</span>
 					<table>
-						<tr ng-repeat="prediction in bus.Predictions | limitTo: 6">
+						<tr ng-repeat="prediction in bus.Predictions | limitTo: 4">
 							<td>{{prediction.RouteID}}</td>
 							<td>{{prediction.DirectionText}}</td>
 							<td class="right">{{prediction.Minutes}}</td>

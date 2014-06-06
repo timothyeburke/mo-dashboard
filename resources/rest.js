@@ -19,6 +19,10 @@ module.exports = function (app) {
 			Predictions: [], 
 			StopName: ""
 		},
+		G8West: {
+			Predictions: [], 
+			StopName: ""
+		},
 		B35: { // New York Ave Metro
 			Predictions: [],
 			StationName: "New York Ave"
@@ -70,13 +74,14 @@ module.exports = function (app) {
 		fetchPredictions(1001624, "south"); 
 		fetchPredictions(1001620, "north");
 		fetchPredictions(1001425, "toUSt");
+		fetchPredictions(1001715, "G8West")
 	};
 
 	// First time
 	getBusPredictions();
 
 	// Then every minute
-	setInterval(getBusPredictions, 1000 * 20); 
+	setInterval(getBusPredictions, 1000 * 25); 
 
 	var getIncidents = function () {
 		var options = {
