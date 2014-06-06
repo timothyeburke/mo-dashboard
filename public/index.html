@@ -28,24 +28,36 @@
 		<div id="content">
 			<div class="split1">
 				<div class="entry" ng-repeat="bus in busses">
-					<span class="entry-title">{{bus.StopName}}</span>
 					<table>
+						<thead>
+						<tr>
+							<td class="col1"><div class="bus"></div></td>
+							<td class="col2"><span class="entry-title">{{bus.StopName}}</span></td>
+							<td class="col3"></td>
+						</tr>
+						</thead>
 						<tr ng-repeat="prediction in bus.Predictions | limitTo: 4">
-							<td>{{prediction.RouteID}}</td>
-							<td>{{prediction.DirectionText}}</td>
-							<td class="right">{{prediction.Minutes}}</td>
+							<td class="col1">{{prediction.RouteID}}</td>
+							<td class="col2">{{prediction.DirectionText}}</td>
+							<td class="col3">{{prediction.Minutes}}</td>
 						</tr>
 					</table>
 				</div>
 			</div>
 			<div class="split2">
 				<div class="entry" ng-repeat="train in trains">
-					<span class="entry-title">{{train.StationName}}</span>
 					<table>
+						<thead>
+							<tr>
+								<td class="col1"><div class="train"></div></td>
+								<td class="col2"><span class="entry-title">{{train.StationName}}</span></td>
+								<td class="col3"></td>
+							</tr>
+							</thead>
 						<tr ng-repeat="prediction in train.Predictions | limitTo: 4" ng-if="prediction.Line.length > 0">
-							<td><span class="icon {{prediction.Line}}"></span></td>
-							<td>{{prediction.Destination}}</td>
-							<td class="right">{{prediction.Min}}</td>
+							<td class="col1"><span class="icon {{prediction.Line}}"></span></td>
+							<td class="col2">{{prediction.Destination}}</td>
+							<td class="col3">{{prediction.Min}}</td>
 						</tr>
 					</table>
 				</div>

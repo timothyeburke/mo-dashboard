@@ -123,24 +123,52 @@ header {
 		padding: 20px;
 		margin-bottom: 20px;
 
+		.train {
+			background-image: url(../img/metro/metro.png);
+			display: inline-block;
+			height: 20px;
+			width: 16px;
+			background-size: 16px 20px;
+			margin-left: 2px;
+		}
+
+		.bus {
+			background-image: url(../img/metro/bus.png);
+			display: inline-block;
+			height: 20px;
+			width: 17px;
+			background-size: 17px 20px;
+			margin-left: 2px;
+		}
+
 		.entry-title {
 			font-size: 2.5rem;
 			@extend %source-sans-semibold;
+			
+
 		}
 
 		table {
-			margin-top: 10px;
+
 			width: 100%;
 			font-size: 2rem;
-			.right {
-				text-align: right;
-			}
 
 			.icon {
 				display: inline-block;
 				height: 20px;
 				width: 20px;
 				background-size: 20px 20px;
+			}
+
+			.col1 {
+				width: 30px;
+			}
+			.col2 {
+
+			}
+			.col3 {
+				width: 30px;
+				text-align: right;
 			}
 
 			.RD { background-image: url(../img/metro/RD.svg.png); }
