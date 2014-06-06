@@ -15,6 +15,10 @@ module.exports = function (app) {
 			Predictions: [], 
 			StopName: ""
 		},
+		toUSt: { 
+			Predictions: [], 
+			StopName: ""
+		},
 		B35: { // New York Ave Metro
 			Predictions: [],
 			StationName: "New York Ave"
@@ -65,6 +69,7 @@ module.exports = function (app) {
 		};
 		fetchPredictions(1001624, "south"); 
 		fetchPredictions(1001620, "north");
+		fetchPredictions(1001425, "toUSt");
 	};
 
 	// First time
