@@ -559,7 +559,7 @@ html {
   font-family: 'SourceSansProRegular', Verdana, Helvetica, Arial, sans-serif;
   font-weight: 400; }
 
-.button, .button-red, .button-green, .button-light, .button-dark {
+.button, .button-red, .button-green, .button-light, .button-dark, #content .entry .entry-title, #content .news .title {
   font-family: 'SourceSansProSemibold', Verdana, Helvetica, Arial, sans-serif;
   font-weight: 600; }
 
@@ -1492,6 +1492,9 @@ p {
     p a:hover {
       border-bottom: 2px solid #0090cb; }
 
+body {
+  background-color: #464646; }
+
 header {
   height: 160px;
   padding: 30px;
@@ -1515,6 +1518,18 @@ header {
     line-height: 100px;
     text-align: right;
     font-family: 'Fjalla One', sans-serif; }
+  #main-header #weather {
+    color: white;
+    width: 250px;
+    height: 100px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: 'Fjalla One', sans-serif;
+    font-size: 7.5rem;
+    line-height: 100px; }
 
 #incidents {
   width: 100%;
@@ -1522,15 +1537,66 @@ header {
   #incidents .label {
     vertical-align: top;
     display: inline-block;
-    padding: 30px;
-    width: 16.66667%;
-    font-size: 3rem; }
+    padding: 20px;
+    width: 14.28571%;
+    font-size: 2.5rem; }
   #incidents .container {
     display: inline-block;
-    padding: 30px;
-    width: 66.66667%;
-    font-size: 2rem;
-    line-height: 30px; }
+    padding: 20px;
+    width: 71.42857%;
+    font-size: 1.8rem;
+    line-height: 25px; }
 
-body {
-  background-color: #464646; }
+#content {
+  white-space: nowrap; }
+  #content .split1 {
+    display: inline-block;
+    width: 33.33333%;
+    padding: 20px;
+    padding-right: 0px;
+    vertical-align: top; }
+  #content .split2 {
+    display: inline-block;
+    width: 20%;
+    padding: 20px;
+    padding-right: 0px;
+    vertical-align: top; }
+  #content .split3 {
+    display: inline-block;
+    width: 46%;
+    padding: 20px;
+    vertical-align: top; }
+  #content .entry {
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+    color: black;
+    background-color: #818386; }
+    #content .entry .entry-title {
+      font-size: 2.5rem; }
+    #content .entry table {
+      margin-top: 10px;
+      width: 100%;
+      font-size: 2rem; }
+      #content .entry table .right {
+        text-align: right; }
+  #content .news {
+    background-color: #818386;
+    padding: 20px; }
+    #content .news .title {
+      font-size: 2.5rem; }
+
+footer {
+  display: none;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  height: 80px;
+  padding: 10px;
+  background-color: #818386; }
+  footer .qr {
+    float: right; }
+    footer .qr img {
+      height: 60px;
+      width: 60px; }
