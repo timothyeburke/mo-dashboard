@@ -1587,6 +1587,16 @@ header {
         background-size: 20px 20px; }
       #content .entry table .RD {
         background-image: url(../img/metro/RD.svg.png); }
+      #content .entry table .GR {
+        background-image: url(../img/metro/GR.svg.png); }
+      #content .entry table .YL {
+        background-image: url(../img/metro/YL.svg.png); }
+      #content .entry table .SV {
+        background-image: url(../img/metro/SV.svg.png); }
+      #content .entry table .SV {
+        background-image: url(../img/metro/SV.svg.png); }
+      #content .entry table .OR {
+        background-image: url(../img/metro/OR.svg.png); }
   #content .news {
     background-color: #818386;
     padding: 20px; }

@@ -23,6 +23,10 @@ module.exports = function (app) {
 			Predictions: [],
 			StationName: "Rhode Island Ave"
 		}, 
+		E02: { // Shaw Metro
+			Predictions: [],
+			StationName: "Shaw / Howard U"
+		},
 		incidents: [],
 		weather: {}
 	};
@@ -150,13 +154,14 @@ module.exports = function (app) {
 		};
 		fetchPredictions("B35"); 
 		fetchPredictions("B04");
+		fetchPredictions("E02");
 	};
 
 	// First time
 	getTrainPredictions();
 
 	// Then every minute
-	setInterval(getTrainPredictions, 1000 * 15);
+	setInterval(getTrainPredictions, 1000 * 30);
 
 	// Stop JSON REST endpoint
 	app.get('/data.json', function (req, res) {

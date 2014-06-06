@@ -6,7 +6,19 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
     	$http.get('data.json').success(function(data) {
 
 	        $scope.busses = [data.south, data.north];
-	        $scope.trains = [data.B35, data.B04];
+	        $scope.trains = [data.B35, data.B04, data.E02];
+	        $scope.trains.forEach(function (station) {
+	        	station.Predictions.forEach(function (train) {
+	        		if (train.Line != "RD" && 
+						train.Line != "GR" && 
+						train.Line != "YL" && 
+						train.Line != "SV" && 
+						train.Line != "SV" && 
+						train.Line != "OR") {
+	        			train.Line = "";
+	        		}
+	        	});
+	        });
 	        $scope.incidents = data.incidents;
 	        $scope.temperature = data.weather.temperature;
 
