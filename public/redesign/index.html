@@ -1,27 +1,65 @@
 <!doctype html>
-<html>
+<html ng-app="dashboardApp">
 	<head>
 		<title>Metropolitan Overlook Dashboard</title>
 		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="assets/css/style.css" />
 		<script src="assets/js/lib/angular.min.js"></script>
+		
 	</head>
-	<body>
+	<body ng-controller="DashboardController">
 		<header id="main-header">
 			<img src="assets/img/header.png" />	
-			<div id="clock"></div>
+			<div id="clock">{{ now | date : 'M/d/yyyy&nbsp;&nbsp;h:mm a'}}</div>
 		</header>
 		<header id="fake-header"></header>
-		<div id="incidents">
+		<div id="incidents" ng-show="incidents.length > 0">
 			<div class="label">Metro Incidents:</div>
 			<div class="container">
-				Incident Line:  Incident text goes here<br />
-				Incident Line:  Incident text goes here<br />
-				Incident Line:  Incident text goes here<br />
-				Incident Line:  Incident text goes here
+				<span ng-repeat="incident in incidents">
+					{{incident.Description}}<br />
+				</span>
 			</div>
 		</div>
 
+		<div id="content">
+			<div class="split">
+				<div class="entry" ng-repeat="bus in busses">
+					<span class="entry-title">{{bus.StopName}}</span>
+					<table>
+						<tr ng-repeat="prediction in bus.Predictions">
+							<td>{{prediction.RouteID}}</td>
+							<td>{{prediction.DirectionText}}</td>
+							<td class="right">{{prediction.Minutes}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="split">
+				<div class="entry" ng-repeat="train in trains">
+					<span class="entry-title">{{train.StationName}}</span>
+					<table>
+						<tr ng-repeat="prediction in train.Predictions">
+							<td>{{prediction.Line}}</td>
+							<td>{{prediction.Destination}}</td>
+							<td class="right">{{prediction.Min}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="split">
+
+			</div>
+
+			
+
+		</div>
+
+		<footer>
+			<div class="qr">
+				<img src="assets/img/qrcode.svg" />
+			</div>
+		</footer>
 	</body>
 	<script src="assets/js/app.js"></script>
 </html>

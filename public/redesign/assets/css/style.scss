@@ -24,6 +24,10 @@ $MOdarkGrey:  rgb(70,70,70);
 $MOlightGrey: rgb(129,131,134);
 $MOyellow:    rgb(196,148,47);
 
+body {
+	background-color: $MOdarkGrey;
+}
+
 header {
 	height: $header-row-height;
 	padding: $header-row-padding;
@@ -61,24 +65,70 @@ header {
 	.label {
 		vertical-align: top;
 		display: inline-block;
-		padding: $header-row-padding;
-		width: percentage(1/6);
-		font-size: 3rem;
+		padding: 20px;
+		width: percentage(1/7);
+		font-size: 2.5rem;
 
 	}
 
 	.container {
 		display: inline-block;
-		padding: $header-row-padding;
-		width: percentage(4/6);
-		font-size: 2rem;
-		line-height: 30px;
+		padding: 20px;
+		width: percentage(5/7);
+		font-size: 1.8rem;
+		line-height: 25px;
+	}
+}
+
+#content {
+
+	.split {
+		display: inline-block;
+		width: percentage(1/3);
+		padding: 20px;
+		vertical-align: top;
+	}
+
+
+	.entry {
+		padding: 20px;
+		margin-bottom: 20px;
+		.entry-title {
+			font-size: 2.5rem;
+			@extend %source-sans-semibold;
+		}
+
+		table {
+			margin-top: 10px;
+			width: 100%;
+			font-size: 2rem;
+			.right {
+				text-align: right;
+			}
+		}
+		width: 100%;
+		color: $black;
+		background-color: $MOlightGrey;
 	}
 }
 
 
+footer {
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	left: 0px;
+	height: 80px;
+	padding: 10px;
+	background-color: $MOlightGrey;
 
-body {
-	background-color: $MOdarkGrey;
+	.qr {
+		float: right;
 
+		img {
+			height: 60px;
+			width: 60px;
+		}
+	}
 }
+
