@@ -72,7 +72,7 @@ module.exports = function (app) {
 			request.end();
 		};
 		fetchPredictions(1001624, "south"); 
-		fetchPredictions(1001620, "north");
+		// fetchPredictions(1001620, "north"); // P6 North - not really needed
 		fetchPredictions(1001425, "toUSt");
 		fetchPredictions(1001715, "G8West")
 	};

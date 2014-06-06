@@ -26,7 +26,7 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 		$http.get('data.json').success(function(data) {
 			$scope.incidents = data.incidents;
 			$scope.temperature = data.weather.temperature;
-			$scope.busses = [data.south, data.north, data.toUSt, data.G8West];
+			$scope.busses = [data.south, data.toUSt, data.G8West];
 			$scope.trains = [data.B35, data.B04, data.E02];
 			$scope.trains.forEach(function (station) {
 				if (station) {
@@ -42,5 +42,5 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 		});
 	};
 	getData();
-	setInterval(getData, 5000);
+	// setInterval(getData, 5000);
 });
