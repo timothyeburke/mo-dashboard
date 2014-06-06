@@ -42,7 +42,7 @@
 				<div class="entry" ng-repeat="train in trains">
 					<span class="entry-title">{{train.StationName}}</span>
 					<table>
-						<tr ng-repeat="prediction in train.Predictions | limitTo: 6" ng-if="prediction.Line.length > 0">
+						<tr ng-repeat="prediction in train.Predictions | limitTo: 4" ng-if="prediction.Line.length > 0">
 							<td><span class="icon {{prediction.Line}}"></span></td>
 							<td>{{prediction.Destination}}</td>
 							<td class="right">{{prediction.Min}}</td>
