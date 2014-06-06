@@ -135,6 +135,17 @@ header {
 			.right {
 				text-align: right;
 			}
+
+			.icon {
+				display: inline-block;
+				height: 20px;
+				width: 20px;
+				background-size: 20px 20px;
+			}
+
+			.RD {
+				background-image: url(../img/metro/RD.svg.png);
+			}
 		}
 		width: 100%;
 		color: $black;

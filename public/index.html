@@ -42,8 +42,8 @@
 				<div class="entry" ng-repeat="train in trains">
 					<span class="entry-title">{{train.StationName}}</span>
 					<table>
-						<tr ng-repeat="prediction in train.Predictions">
-							<td>{{prediction.Line}}</td>
+						<tr ng-repeat="prediction in train.Predictions" ng-if="prediction.Line.length > 0">
+							<td><span class="icon {{prediction.Line}}"></span></td>
 							<td>{{prediction.Destination}}</td>
 							<td class="right">{{prediction.Min}}</td>
 						</tr>
