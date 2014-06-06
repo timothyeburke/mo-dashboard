@@ -27,10 +27,10 @@
 
 		<div id="content">
 			<div class="split1">
-				<div class="entry" ng-repeat="bus in busses | limitTo: 6">
+				<div class="entry" ng-repeat="bus in busses">
 					<span class="entry-title">{{bus.StopName}}</span>
 					<table>
-						<tr ng-repeat="prediction in bus.Predictions">
+						<tr ng-repeat="prediction in bus.Predictions | limitTo: 6">
 							<td>{{prediction.RouteID}}</td>
 							<td>{{prediction.DirectionText}}</td>
 							<td class="right">{{prediction.Minutes}}</td>
