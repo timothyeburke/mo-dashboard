@@ -76,7 +76,7 @@ module.exports = function (app) {
 	getBusPredictions();
 
 	// Then every minute
-	setInterval(getBusPredictions, 1000 * 15); 
+	setInterval(getBusPredictions, 1000 * 20); 
 
 	var getIncidents = function () {
 		var options = {
