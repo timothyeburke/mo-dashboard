@@ -1,34 +1,73 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html ng-app="dashboardApp">
 	<head>
-		<title>Transit Tracker</title>
-		<meta name="viewport" content="initial-scale=1">
-		<link href="style/style.css" rel="stylesheet" />
-		<script type="text/javascript" src="jquery.js"></script>
-		<script type="text/javascript" src="js/client.js"></script>
+		<title>Metropolitan Overlook Dashboard</title>
+		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="assets/css/style.css" />
+		<script src="assets/js/lib/angular.min.js"></script>
+		
 	</head>
-	<body>
-		<header>
-			<h1>Metropolitan Overlook Transit Info</h1>
+	<body ng-controller="DashboardController">
+		<header id="main-header">
+			<img src="assets/img/header.png" />	
+			<div id="weather">
+				{{temperature | number: 0}}&deg;
+			</div>
+			<div id="clock">{{ now | date : 'M/d/yyyy&nbsp;&nbsp;h:mm a'}}</div>
 		</header>
-		<div id="qr">
-			<img src="img/qrcode.svg" alt="QR Code" />
+		<header id="fake-header"></header>
+		<div id="incidents" ng-show="incidents.length > 0">
+			<div class="label">Metro Incidents:</div>
+			<div class="container">
+				<span ng-repeat="incident in incidents">
+					{{incident.Description}}<br />
+				</span>
+			</div>
 		</div>
-		<span id="transit" class="transit template">
-			<h2></h2>
-			<table>
-				<thead>
-					<tr>
-						<td>Route</td>
-						<td>Direction</td>
-						<td>Estimate</td>
-					</tr>
-				</thead>
-				<tbody class="predictions"></tbody>
-			</table>
-		</span>
-		<div id="incidents" class="transit hidden"></div>
-		<div id="transit-container"></div>
-		<footer><a href="mailto:timothy.e.burke@gmail.com">Tim Burke</a>, Unit 406</footer>
+
+		<div id="content">
+			<div class="split1">
+				<div class="entry" ng-repeat="bus in busses">
+					<span class="entry-title">{{bus.StopName}}</span>
+					<table>
+						<tr ng-repeat="prediction in bus.Predictions">
+							<td>{{prediction.RouteID}}</td>
+							<td>{{prediction.DirectionText}}</td>
+							<td class="right">{{prediction.Minutes}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="split2">
+				<div class="entry" ng-repeat="train in trains">
+					<span class="entry-title">{{train.StationName}}</span>
+					<table>
+						<tr ng-repeat="prediction in train.Predictions">
+							<td>{{prediction.Line}}</td>
+							<td>{{prediction.Destination}}</td>
+							<td class="right">{{prediction.Min}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="split3">
+				<div class="news">
+					<span class="title">
+						News and Announcements
+					</span>
+				</div>
+			</div>
+			
+
+			
+
+		</div>
+
+		<footer>
+			<div class="qr">
+				<img src="assets/img/qrcode.svg" />
+			</div>
+		</footer>
 	</body>
+	<script src="assets/js/app.js"></script>
 </html>

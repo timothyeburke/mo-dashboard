@@ -115,13 +115,13 @@ module.exports = function (app) {
 				console.log(err);
 				stopData.weather = {};
 			}
-			stopData.weather = data;
+			stopData.weather = data.currently;
 		});
 	};
 
-	// getWeather();
+	getWeather();
 
-	// setInterval(getWeather, 1000 * 60 * 10);
+	setInterval(getWeather, 1000 * 60 * 10);
 
 	var getTrainPredictions = function () {
 		var fetchPredictions = function (station) {

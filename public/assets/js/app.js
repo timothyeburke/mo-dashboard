@@ -8,7 +8,7 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 	        $scope.busses = [data.south, data.north];
 	        $scope.trains = [data.B35, data.B04];
 	        $scope.incidents = data.incidents;
-	        $scope.temperature = 75;
+	        $scope.temperature = data.weather.temperature;
 
 	    });
     };
