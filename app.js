@@ -1,6 +1,9 @@
 var express = require('express');
 var app     = express();
-var rest    = require('./resources/rest')(app);
+
+if (process.env.PORT) {
+	var rest = require('./resources/rest')(app);	
+}
 
 // simple logger
 app.use(function(req, res, next){
