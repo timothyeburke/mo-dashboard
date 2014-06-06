@@ -4,16 +4,37 @@
       {
         "DirectionNum": "0",
         "DirectionText": "South to Anacostia Station",
-        "Minutes": 59,
+        "Minutes": 3,
+        "RouteID": "P6",
+        "VehicleID": "6529"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "South to Anacostia Station",
+        "Minutes": 17,
+        "RouteID": "P6",
+        "VehicleID": "6569"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "South to Anacostia Station",
+        "Minutes": 32,
         "RouteID": "P6",
         "VehicleID": "6526"
       },
       {
         "DirectionNum": "0",
         "DirectionText": "South to Anacostia Station",
-        "Minutes": 89,
+        "Minutes": 47,
         "RouteID": "P6",
-        "VehicleID": "6350"
+        "VehicleID": "6338"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "South to Anacostia Station",
+        "Minutes": 62,
+        "RouteID": "P6",
+        "VehicleID": "6564"
       }
     ],
     "StopName": "2nd St Ne + T St Ne"
@@ -23,46 +44,149 @@
       {
         "DirectionNum": "1",
         "DirectionText": "North to Rhode Island Ave Station",
-        "Minutes": 33,
+        "Minutes": 10,
         "RouteID": "P6",
         "VehicleID": "6526"
       },
       {
         "DirectionNum": "1",
         "DirectionText": "North to Rhode Island Ave Station",
-        "Minutes": 60,
+        "Minutes": 15,
         "RouteID": "P6",
-        "VehicleID": "6350"
+        "VehicleID": "6338"
       },
       {
         "DirectionNum": "1",
         "DirectionText": "North to Rhode Island Ave Station",
-        "Minutes": 90,
+        "Minutes": 31,
         "RouteID": "P6",
-        "VehicleID": "6585"
+        "VehicleID": "6564"
+      },
+      {
+        "DirectionNum": "1",
+        "DirectionText": "North to Rhode Island Ave Station",
+        "Minutes": 42,
+        "RouteID": "P6",
+        "VehicleID": "6331"
+      },
+      {
+        "DirectionNum": "1",
+        "DirectionText": "North to Rhode Island Ave Station",
+        "Minutes": 79,
+        "RouteID": "P6",
+        "VehicleID": "6566"
       }
     ],
     "StopName": "3rd St Ne + Seaton Pl Ne"
   },
+  "toUSt": {
+    "Predictions": [
+      {
+        "DirectionNum": "0",
+        "DirectionText": "North to Ellington Bridge",
+        "Minutes": 3,
+        "RouteID": "90",
+        "VehicleID": "6315"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "North to Reeves Center - 14th & U Nw",
+        "Minutes": 7,
+        "RouteID": "92",
+        "VehicleID": "6319"
+      },
+      {
+        "DirectionNum": "1",
+        "DirectionText": "West to Tenleytown Station",
+        "Minutes": 8,
+        "RouteID": "X3",
+        "VehicleID": "2382"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "North to Ellington Bridge",
+        "Minutes": 13,
+        "RouteID": "90",
+        "VehicleID": "6328"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "North to Reeves Center - 14th & U Nw",
+        "Minutes": 16,
+        "RouteID": "92",
+        "VehicleID": "6320"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "North to Ellington Bridge",
+        "Minutes": 21,
+        "RouteID": "90",
+        "VehicleID": "6524"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "North to Reeves Center - 14th & U Nw",
+        "Minutes": 28,
+        "RouteID": "92",
+        "VehicleID": "6329"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "North to Ellington Bridge",
+        "Minutes": 29,
+        "RouteID": "90",
+        "VehicleID": "6307"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "North to Reeves Center - 14th & U Nw",
+        "Minutes": 31,
+        "RouteID": "92",
+        "VehicleID": "6426"
+      },
+      {
+        "DirectionNum": "1",
+        "DirectionText": "West to Tenleytown Station",
+        "Minutes": 37,
+        "RouteID": "X3",
+        "VehicleID": "2505"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "North to Ellington Bridge",
+        "Minutes": 41,
+        "RouteID": "90",
+        "VehicleID": "6582"
+      },
+      {
+        "DirectionNum": "0",
+        "DirectionText": "North to Reeves Center - 14th & U Nw",
+        "Minutes": 44,
+        "RouteID": "92",
+        "VehicleID": "6301"
+      }
+    ],
+    "StopName": "Florida Ave + Eckington Pl"
+  },
   "B35": {
     "Predictions": [
       {
-        "Car": "8",
-        "Destination": "Shady Gr",
-        "DestinationCode": "A15",
-        "DestinationName": "Shady Grove",
-        "Group": "2",
+        "Car": "6",
+        "Destination": "SilvrSpg",
+        "DestinationCode": "B08",
+        "DestinationName": "Silver Spring",
+        "Group": "1",
         "Line": "RD",
         "LocationCode": "B35",
         "LocationName": "New York Avenue",
-        "Min": "1"
+        "Min": "2"
       },
       {
-        "Car": "6",
-        "Destination": "Glenmont",
-        "DestinationCode": "B11",
-        "DestinationName": "Glenmont",
-        "Group": "1",
+        "Car": "8",
+        "Destination": "Grsvnor",
+        "DestinationCode": "A11",
+        "DestinationName": "Grosvenor-Strathmore",
+        "Group": "2",
         "Line": "RD",
         "LocationCode": "B35",
         "LocationName": "New York Avenue",
@@ -88,29 +212,29 @@
         "Line": "RD",
         "LocationCode": "B35",
         "LocationName": "New York Avenue",
-        "Min": "7"
+        "Min": "5"
       },
       {
-        "Car": "6",
-        "Destination": "Glenmont",
-        "DestinationCode": "B11",
-        "DestinationName": "Glenmont",
+        "Car": "-",
+        "Destination": "Train",
+        "DestinationCode": null,
+        "DestinationName": "Train",
         "Group": "1",
-        "Line": "RD",
+        "Line": "--",
         "LocationCode": "B35",
         "LocationName": "New York Avenue",
-        "Min": "10"
+        "Min": "6"
       },
       {
         "Car": "6",
-        "Destination": "Shady Gr",
-        "DestinationCode": "A15",
-        "DestinationName": "Shady Grove",
+        "Destination": "Grsvnor",
+        "DestinationCode": "A11",
+        "DestinationName": "Grosvenor-Strathmore",
         "Group": "2",
         "Line": "RD",
         "LocationCode": "B35",
         "LocationName": "New York Avenue",
-        "Min": "12"
+        "Min": "8"
       }
     ],
     "StationName": "New York Ave"
@@ -119,20 +243,20 @@
     "Predictions": [
       {
         "Car": "6",
-        "Destination": "Glenmont",
-        "DestinationCode": "B11",
-        "DestinationName": "Glenmont",
-        "Group": "1",
+        "Destination": "Shady Gr",
+        "DestinationCode": "A15",
+        "DestinationName": "Shady Grove",
+        "Group": "2",
         "Line": "RD",
         "LocationCode": "B04",
         "LocationName": "Rhode Island Avenue",
-        "Min": "1"
+        "Min": "2"
       },
       {
         "Car": "6",
-        "Destination": "Glenmont",
-        "DestinationCode": "B11",
-        "DestinationName": "Glenmont",
+        "Destination": "SilvrSpg",
+        "DestinationCode": "B08",
+        "DestinationName": "Silver Spring",
         "Group": "1",
         "Line": "RD",
         "LocationCode": "B04",
@@ -141,9 +265,9 @@
       },
       {
         "Car": "6",
-        "Destination": "Shady Gr",
-        "DestinationCode": "A15",
-        "DestinationName": "Shady Grove",
+        "Destination": "Grsvnor",
+        "DestinationCode": "A11",
+        "DestinationName": "Grosvenor-Strathmore",
         "Group": "2",
         "Line": "RD",
         "LocationCode": "B04",
@@ -162,32 +286,102 @@
         "Min": "7"
       },
       {
-        "Car": "",
-        "Destination": "No Passenger",
+        "Car": "-",
+        "Destination": "Train",
         "DestinationCode": null,
-        "DestinationName": "No Passenger",
-        "Group": "2",
-        "Line": "No",
+        "DestinationName": "Train",
+        "Group": "1",
+        "Line": "--",
         "LocationCode": "B04",
         "LocationName": "Rhode Island Avenue",
-        "Min": "7"
+        "Min": "8"
       },
       {
-        "Car": "",
-        "Destination": "No Passenger",
-        "DestinationCode": null,
-        "DestinationName": "No Passenger",
+        "Car": "8",
+        "Destination": "Shady Gr",
+        "DestinationCode": "A15",
+        "DestinationName": "Shady Grove",
         "Group": "2",
-        "Line": "No",
+        "Line": "RD",
         "LocationCode": "B04",
         "LocationName": "Rhode Island Avenue",
-        "Min": "---"
+        "Min": "8"
       }
     ],
     "StationName": "Rhode Island Ave"
   },
-  "incidents": [
-    {
+  "E02": {
+    "Predictions": [
+      {
+        "Car": "6",
+        "Destination": "Grnbelt",
+        "DestinationCode": "E10",
+        "DestinationName": "Greenbelt",
+        "Group": "1",
+        "Line": "YL",
+        "LocationCode": "E02",
+        "LocationName": "Shaw",
+        "Min": "BRD"
+      },
+      {
+        "Car": "6",
+        "Destination": "Grnbelt",
+        "DestinationCode": "E10",
+        "DestinationName": "Greenbelt",
+        "Group": "1",
+        "Line": "GR",
+        "LocationCode": "E02",
+        "LocationName": "Shaw",
+        "Min": "2"
+      },
+      {
+        "Car": "6",
+        "Destination": "Brnch Av",
+        "DestinationCode": "F11",
+        "DestinationName": "Branch Avenue",
+        "Group": "2",
+        "Line": "GR",
+        "LocationCode": "E02",
+        "LocationName": "Shaw",
+        "Min": "5"
+      },
+      {
+        "Car": "8",
+        "Destination": "Grnbelt",
+        "DestinationCode": "E10",
+        "DestinationName": "Greenbelt",
+        "Group": "1",
+        "Line": "GR",
+        "LocationCode": "E02",
+        "LocationName": "Shaw",
+        "Min": "6"
+      },
+      {
+        "Car": "6",
+        "Destination": "Frnconia",
+        "DestinationCode": "J03",
+        "DestinationName": "Franconia-Springfield",
+        "Group": "2",
+        "Line": "YL",
+        "LocationCode": "E02",
+        "LocationName": "Shaw",
+        "Min": "8"
+      },
+      {
+        "Car": "8",
+        "Destination": "Brnch Av",
+        "DestinationCode": "F11",
+        "DestinationName": "Branch Avenue",
+        "Group": "2",
+        "Line": "GR",
+        "LocationCode": "E02",
+        "LocationName": "Shaw",
+        "Min": "16"
+      }
+    ],
+    "StationName": "Shaw / Howard U"
+  },
+  "incidents": [{
       "DateUpdated": "/Date(1401995640000+0000)/",
       "DelaySeverity": null,
       "Description": "Woodley Park: Due to a power outage all escalators & elevators are out of service. Buses have been requested, the station remains open.",
@@ -198,25 +392,25 @@
       "LinesAffected": "RD;",
       "PassengerDelay": 0,
       "StartLocationFullName": null
-    }
-  ],
+    }],
   "weather": {
-    "time": 1402020160,
+    "time": 1402053468,
     "summary": "Partly Cloudy",
-    "icon": "partly-cloudy-night",
-    "nearestStormDistance": 135,
-    "nearestStormBearing": 76,
+    "icon": "partly-cloudy-day",
+    "nearestStormDistance": 153,
+    "nearestStormBearing": 191,
     "precipIntensity": 0,
     "precipProbability": 0,
-    "temperature": 72.98,
-    "apparentTemperature": 70.98,
-    "dewPoint": 53.67,
-    "humidity": 0.54,
-    "windSpeed": 5.8,
-    "windBearing": 310,
-    "visibility": 10,
-    "cloudCover": 0.35,
-    "pressure": 1011.01,
-    "ozone": 339.67
+    "temperature": 60.45,
+    "apparentTemperature": 60.45,
+    "dewPoint": 50.29,
+    "humidity": 0.69,
+    "windSpeed": 5.53,
+    "windBearing": 311,
+    "visibility": 9.98,
+    "cloudCover": 0.44,
+    "pressure": 1013.72,
+    "ozone": 323.61
   }
 }
+
