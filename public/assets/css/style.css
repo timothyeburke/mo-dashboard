@@ -1558,8 +1558,10 @@ header {
     display: inline-block;
     padding: 20px;
     width: 71.42857%;
-    font-size: 1.8rem;
-    line-height: 25px; }
+    font-size: 2rem;
+    line-height: 20px; }
+    #incidents .container .incident {
+      padding-bottom: 5px; }
 
 #content {
   white-space: nowrap; }

@@ -19,12 +19,12 @@
 		<div id="incidents" ng-show="incidents.length > 0">
 			<div class="label">Metro Incidents:</div>
 			<div class="container">
-				<span ng-repeat="incident in incidents">
+				<div class="incident" ng-repeat="incident in incidents">
 					<span ng-repeat="line in incident.affected">
 						<span class="icon {{line}}"></span>&nbsp;
 					</span>
 					{{incident.Description}}<br />
-				</span>
+				</div>
 			</div>
 		</div>
 		<div id="content">

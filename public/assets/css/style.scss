@@ -102,8 +102,12 @@ header {
 		display: inline-block;
 		padding: 20px;
 		width: percentage(5/7);
-		font-size: 1.8rem;
-		line-height: 25px;
+		font-size: 2rem;
+		line-height: 20px;
+
+		.incident {
+			padding-bottom: 5px;
+		}
 	}
 }
 
