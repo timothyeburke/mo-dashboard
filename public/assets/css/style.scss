@@ -2,14 +2,7 @@
 
 @import "color";
 @import "mixins";
-// @import "fonts-base";
-%source-sans {
-	font-family: sans-serif;
-}
-%source-sans-semibold {
-	font-family: sans-serif;
-	font-weight: bold;
-}
+@import "fonts-base";
 // @import "fonts-extended";
 @import "ringtail-icons-2.0";
 @import "grid";
@@ -61,8 +54,7 @@ header {
 		font-size: 7.5rem;
 		line-height: $header-row-content-height;
 		text-align: right;
-		//font-family: 'Fjalla One', sans-serif;
-		font-weight: bold;
+		font-family: 'Fjalla One', sans-serif;
 	}
 
 	#weather {
@@ -74,8 +66,7 @@ header {
 	    right:0;
 	    margin-left:auto;
 	    margin-right:auto;
-	    // font-family: 'Fjalla One', sans-serif;
-	    font-weight: bold;
+	    font-family: 'Fjalla One', sans-serif;
 	    font-size: 7.5rem;
 		line-height: $header-row-content-height;
 	}
