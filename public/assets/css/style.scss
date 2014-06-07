@@ -71,6 +71,19 @@ header {
 	}
 }
 
+.icon {
+	display: inline-block;
+	height: 20px;
+	width: 20px;
+	background-size: 20px 20px;
+}
+.RD { background-image: url(../img/metro/RD.svg.png); }
+.GR { background-image: url(../img/metro/GR.svg.png); }
+.YL { background-image: url(../img/metro/YL.svg.png); }
+.SV { background-image: url(../img/metro/SV.svg.png); }
+.BL { background-image: url(../img/metro/BL.svg.png); }
+.OR { background-image: url(../img/metro/OR.svg.png); }
+
 #incidents {
 	width: 100%;
 	
@@ -158,12 +171,7 @@ header {
 				height: 25px;
 			}
 
-			.icon {
-				display: inline-block;
-				height: 20px;
-				width: 20px;
-				background-size: 20px 20px;
-			}
+			
 
 			.col1 {
 				width: 30px;
@@ -174,12 +182,6 @@ header {
 			
 			
 
-			.RD { background-image: url(../img/metro/RD.svg.png); }
-			.GR { background-image: url(../img/metro/GR.svg.png); }
-			.YL { background-image: url(../img/metro/YL.svg.png); }
-			.SV { background-image: url(../img/metro/SV.svg.png); }
-			.SV { background-image: url(../img/metro/SV.svg.png); }
-			.OR { background-image: url(../img/metro/OR.svg.png); }
 		}
 		width: 100%;
 		color: $black;
