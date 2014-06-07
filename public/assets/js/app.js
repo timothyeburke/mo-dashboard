@@ -42,5 +42,5 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 		});
 	};
 	getData();
-	// setInterval(getData, 5000);
+	setInterval(getData, 5000);
 });
