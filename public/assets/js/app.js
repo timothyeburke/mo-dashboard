@@ -1,3 +1,7 @@
+setTimeout(function () {
+	window.location.reload(true);
+}, 1000 * 60 * 60);
+
 var weatherIcons = {
 	"clear-day":           "",
 	"clear-night":         "",
