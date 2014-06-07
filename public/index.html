@@ -3,38 +3,36 @@
 	<head>
 		<title>Metropolitan Overlook Dashboard</title>
 		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="assets/css/style.css" />
-		<script src="assets/js/lib/angular.min.js"></script>
-		
-	</head>
-	<body ng-controller="DashboardController">
-		<header id="main-header">
-			<img src="assets/img/header.png" />	
-			<div id="weather">
-				{{temperature | number: 0}}&deg;
-			</div>
-			<div id="clock">{{ now | date : 'M/d/yyyy&nbsp;&nbsp;h:mm a'}}</div>
-		</header>
+			<link rel="stylesheet" href="assets/css/style.css" />
+			<script src="assets/js/lib/angular.min.js"></script>
+
+		</head>
+		<body ng-controller="DashboardController">
+			<header id="main-header">
+				<img src="assets/img/header.png" />
+				<div id="weather">
+					{{temperature | number: 0}}&deg;
+				</div>
+				<div id="clock">{{ now | date : 'M/d/yyyy&nbsp;&nbsp;h:mm a'}}</div>
+			</header>
 		<header id="fake-header"></header>
 		<div id="incidents" ng-show="incidents.length > 0">
 			<div class="label">Metro Incidents:</div>
 			<div class="container">
 				<span ng-repeat="incident in incidents">
-					{{incident.Description}}<br />
+				{{incident.Description}}<br />
 				</span>
 			</div>
 		</div>
-
 		<div id="content">
 			<div class="split1">
 				<div class="entry" ng-repeat="bus in busses">
 					<table>
 						<thead>
-						<tr>
-							<td class="col1"><div class="bus"></div></td>
-							<td class="col2" colspan="2"><span class="entry-title">{{bus.StopName}}</span></td>
-							
-						</tr>
+							<tr>
+								<td class="col1"><div class="bus"></div></td>
+								<td class="col2" colspan="2"><span class="entry-title">{{bus.StopName}}</span></td>
+							</tr>
 						</thead>
 						<tr ng-repeat="prediction in bus.Predictions | limitTo: 4">
 							<td class="col1">{{prediction.RouteID}}</td>
@@ -52,7 +50,7 @@
 								<td class="col1"><div class="train"></div></td>
 								<td class="col2" colspan="2"><span class="entry-title">{{train.StationName}}</span></td>
 							</tr>
-							</thead>
+						</thead>
 						<tr ng-repeat="prediction in train.Predictions | limitTo: 4" ng-if="prediction.Line.length > 0">
 							<td class="col1"><span class="icon {{prediction.Line}}"></span></td>
 							<td class="col2">{{prediction.Destination}}</td>
@@ -64,16 +62,11 @@
 			<div class="split3">
 				<div class="news">
 					<span class="title">
-						News and Announcements
+					News and Announcements
 					</span>
 				</div>
 			</div>
-			
-
-			
-
 		</div>
-
 		<footer>
 			<div class="qr">
 				<img src="assets/img/qrcode.svg" />

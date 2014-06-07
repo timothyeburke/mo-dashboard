@@ -153,6 +153,11 @@ header {
 			width: 100%;
 			font-size: 2rem;
 
+			td, tr {
+				padding: 0px;
+				height: 25px;
+			}
+
 			.icon {
 				display: inline-block;
 				height: 20px;
@@ -163,13 +168,11 @@ header {
 			.col1 {
 				width: 30px;
 			}
-			.col2 {
-
-			}
 			.col3 {
-				width: 30px;
 				text-align: right;
 			}
+			
+			
 
 			.RD { background-image: url(../img/metro/RD.svg.png); }
 			.GR { background-image: url(../img/metro/GR.svg.png); }

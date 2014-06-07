@@ -528,28 +528,24 @@ body {
   src: url("../fonts/SourceSansPro-Regular-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/SourceSansPro-Regular-webfont.woff") format("woff"), url("../fonts/SourceSansPro-Regular-webfont.ttf") format("truetype"), url("../fonts/SourceSansPro-Regular-webfont.svg#SourceSansProRegular") format("svg");
   font-weight: normal;
   font-style: normal; }
-
 @font-face {
   font-family: 'SourceSansProItalic';
   src: url("../fonts/SourceSansPro-It-webfont.eot");
   src: url("../fonts/SourceSansPro-It-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/SourceSansPro-It-webfont.woff") format("woff"), url("../fonts/SourceSansPro-It-webfont.ttf") format("truetype"), url("../fonts/SourceSansPro-It-webfont.svg#SourceSansProItalic") format("svg");
   font-weight: normal;
   font-style: normal; }
-
 @font-face {
   font-family: 'SourceSansProSemibold';
   src: url("../fonts/SourceSansPro-Semibold-webfont.eot");
   src: url("../fonts/SourceSansPro-Semibold-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/SourceSansPro-Semibold-webfont.woff") format("woff"), url("../fonts/SourceSansPro-Semibold-webfont.ttf") format("truetype"), url("../fonts/SourceSansPro-Semibold-webfont.svg#SourceSansProSemibold") format("svg");
   font-weight: normal;
   font-style: normal; }
-
 @font-face {
   font-family: 'SourceSansProSemiboldItalic';
   src: url("../fonts/SourceSansPro-SemiboldIt-webfont.eot");
   src: url("../fonts/SourceSansPro-SemiboldIt-webfont.eot?#iefix") format("embedded-opentype"), url("../fonts/SourceSansPro-SemiboldIt-webfont.woff") format("woff"), url("../fonts/SourceSansPro-SemiboldIt-webfont.ttf") format("truetype"), url("../fonts/SourceSansPro-SemiboldIt-webfont.svg#SourceSansProSemiboldItalic") format("svg");
   font-weight: normal;
   font-style: normal; }
-
 /*
  * * * * * * * * * * * * * * * * * * *
  * @extends for the BASE Source Sans Pro files
@@ -610,7 +606,6 @@ Copyright (c) 2013 Shaun Fox [http://shaunfox.com] under the MIT License (MIT) [
 
   to {
     -webkit-transform: rotate(360deg); } }
-
 @-moz-keyframes spin {
   from {
     -moz-transform: rotate(0deg); }
@@ -620,7 +615,6 @@ Copyright (c) 2013 Shaun Fox [http://shaunfox.com] under the MIT License (MIT) [
 
   to {
     -moz-transform: rotate(360deg); } }
-
 @-ms-keyframes spin {
   from {
     -ms-transform: rotate(0deg); }
@@ -630,7 +624,6 @@ Copyright (c) 2013 Shaun Fox [http://shaunfox.com] under the MIT License (MIT) [
 
   to {
     -ms-transform: rotate(360deg); } }
-
 @-o-keyframes spin {
   from {
     -o-transform: rotate(0deg); }
@@ -640,7 +633,6 @@ Copyright (c) 2013 Shaun Fox [http://shaunfox.com] under the MIT License (MIT) [
 
   to {
     -o-transform: rotate(360deg); } }
-
 @keyframes spin {
   from {
     transform: rotate(0deg); }
@@ -650,14 +642,12 @@ Copyright (c) 2013 Shaun Fox [http://shaunfox.com] under the MIT License (MIT) [
 
   to {
     transform: rotate(360deg); } }
-
 @font-face {
   font-family: 'ringtail-icons-2.0';
   src: url("../icons/ringtail-icons-2.0.eot");
   src: url("../icons/ringtail-icons-2.0.eot?#iefix") format("embedded-opentype"), url("../icons/ringtail-icons-2.0.woff") format("woff"), url("../icons/ringtail-icons-2.0.ttf") format("truetype"), url("../icons/ringtail-icons-2.0.svg#ringtail-icons-2.0") format("svg");
   font-weight: normal;
   font-style: normal; }
-
 /* Use the following CSS code if you want to use data attributes for inserting your icons */
 [data-icon]:before {
   font-family: 'ringtail-icons-2.0';
@@ -1591,6 +1581,9 @@ header {
     #content .entry table {
       width: 100%;
       font-size: 2rem; }
+      #content .entry table td, #content .entry table tr {
+        padding: 0px;
+        height: 25px; }
       #content .entry table .icon {
         display: inline-block;
         height: 20px;
@@ -1599,7 +1592,6 @@ header {
       #content .entry table .col1 {
         width: 30px; }
       #content .entry table .col3 {
-        width: 30px;
         text-align: right; }
       #content .entry table .RD {
         background-image: url(../img/metro/RD.svg.png); }
