@@ -1,5 +1,6 @@
 var http     = require('http');
 var Forecast = require('forecast.io');
+var _        = require('underscore');
 
 module.exports = function (app) {
 	var default_key = '&api_key=d46qgb277rn9hq8q8emvqyfr';
@@ -96,6 +97,16 @@ module.exports = function (app) {
 				try {
 					temp += data;
 					stopData.incidents = JSON.parse(temp).Incidents;
+					stopData.incidents.forEach(function (incident) {
+						incident.affected = _.compact(incident.LinesAffected.split(';'));
+						if (incident.Description.indexOf(":") != -1) {
+							incident.Description = incident.Description.split(":")[1];
+						}
+						if (incident.Description.indexOf(".") != -1) {
+							incident.Description = incident.Description.split(".")[0] + ".";
+						}
+
+					});
 				} catch (err) {
 					console.log(err);
 					stopData.incidents = [];
