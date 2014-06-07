@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "*",
-    "forecast.io": "*"
+    "forecast.io": "*",
+    "underscore": "*"
   },
   "engines": {
     "node": "0.10.x",
