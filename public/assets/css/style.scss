@@ -87,7 +87,7 @@ header {
 
 #incidents {
 	width: 100%;
-	
+	@extend %source-sans-semibold;
 	background-color: $MOyellow;
 
 	.label {
@@ -161,13 +161,11 @@ header {
 
 		.entry-title {
 			font-size: 2.5rem;
-			@extend %source-sans-semibold;
 			
-
 		}
 
 		table {
-
+			@extend %source-sans-semibold;
 			width: 100%;
 			font-size: 2rem;
 

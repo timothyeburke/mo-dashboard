@@ -555,7 +555,7 @@ html {
   font-family: 'SourceSansProRegular', Verdana, Helvetica, Arial, sans-serif;
   font-weight: 400; }
 
-.button, .button-red, .button-green, .button-light, .button-dark, #content .entry .entry-title, #content .news .title {
+.button, .button-red, .button-green, .button-light, .button-dark, #incidents, #content .entry table, #content .news .title {
   font-family: 'SourceSansProSemibold', Verdana, Helvetica, Arial, sans-serif;
   font-weight: 600; }
 
