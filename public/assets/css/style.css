@@ -1472,7 +1472,8 @@ header {
     color: white;
     font-size: 7.5rem;
     line-height: 100px;
-    text-align: right; }
+    text-align: right;
+    font-weight: bold; }
   #main-header #weather {
     color: white;
     width: 250px;
@@ -1482,7 +1483,7 @@ header {
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    font-family: 'Fjalla One', sans-serif;
+    font-weight: bold;
     font-size: 7.5rem;
     line-height: 100px; }
 
