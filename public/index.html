@@ -20,7 +20,10 @@
 			<div class="label">Metro Incidents:</div>
 			<div class="container">
 				<span ng-repeat="incident in incidents">
-				{{incident.Description}}<br />
+					<span ng-repeat="line in incident.affected">
+						<span class="icon {{line}}"></span>&nbsp;
+					</span>
+					{{incident.Description}}<br />
 				</span>
 			</div>
 		</div>
