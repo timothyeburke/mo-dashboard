@@ -1617,7 +1617,8 @@ header {
         text-align: right; }
   #content .news {
     background-color: #818386;
-    padding: 20px; }
+    padding: 20px;
+    white-space: normal; }
     #content .news .title {
       font-size: 2.5rem; }
 
