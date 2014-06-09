@@ -45,7 +45,7 @@ module.exports = function (app) {
 	var getBusPredictions = function () {
 		var errorObject = {
 			Predictions: [],
-			StopName: "Error fetching data."
+			StopName: "Error fetching bus data."
 		};
 		var fetchPredictions = function (stop, direction) {
 			var options = {
