@@ -252,6 +252,6 @@ module.exports = function (app) {
 			});
 
 		res.contentType('application/json');
-		res.send(data);
+		res.send(data); 
 	});
 }
