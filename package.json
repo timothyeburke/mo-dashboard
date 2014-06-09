@@ -4,6 +4,7 @@
   "dependencies": {
     "express": "*",
     "forecast.io": "*",
+    "underscore": "*",
     "xml2js": "*"
   },
   "engines": {

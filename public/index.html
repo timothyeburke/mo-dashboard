@@ -19,22 +19,23 @@
 		<div id="incidents" ng-show="incidents.length > 0">
 			<div class="label">Metro Incidents:</div>
 			<div class="container">
-				<span ng-repeat="incident in incidents">
+				<div class="incident" ng-repeat="incident in incidents">
+					<span ng-repeat="line in incident.affected">
+						<span class="icon {{line}}"></span>&nbsp;
+					</span>
 					{{incident.Description}}<br />
-				</span>
+				</div>
 			</div>
 		</div>
-
 		<div id="content">
 			<div class="split1">
 				<div class="entry" ng-repeat="bus in busses">
 					<table>
 						<thead>
-						<tr>
-							<td class="col1"><div class="bus"></div></td>
-							<td class="col2"><span class="entry-title">{{bus.StopName}}</span></td>
-							<td class="col3"></td>
-						</tr>
+							<tr>
+								<td class="col1"><div class="bus"></div></td>
+								<td class="col2" colspan="2"><span class="entry-title">{{bus.StopName}}</span></td>
+							</tr>
 						</thead>
 						<tr ng-repeat="prediction in bus.Predictions | limitTo: 4">
 							<td class="col1">{{prediction.RouteID}}</td>
@@ -50,10 +51,9 @@
 						<thead>
 							<tr>
 								<td class="col1"><div class="train"></div></td>
-								<td class="col2"><span class="entry-title">{{train.StationName}}</span></td>
-								<td class="col3"></td>
+								<td class="col2" colspan="2"><span class="entry-title">{{train.StationName}}</span></td>
 							</tr>
-							</thead>
+						</thead>
 						<tr ng-repeat="prediction in train.Predictions | limitTo: 4" ng-if="prediction.Line.length > 0">
 							<td class="col1"><span class="icon {{prediction.Line}}"></span></td>
 							<td class="col2">{{prediction.Destination}}</td>
@@ -65,16 +65,19 @@
 			<div class="split3">
 				<div class="news">
 					<span class="title">
-						News and Announcements
+					News and Announcements
 					</span>
+					<br/>
+					<br/>
+					Welcome to Metropolitan Overlook!  This neighborhood dashboard is a work in progress.  Check back 
+					often for updates and changes.  In future, news and announcements about our building will go in 
+					this space.  If you have any questions, suggestions, or notice any bugs, feel free to reach out 
+					to me.<br /><br /><br /><br />
+					-Tim, Unit 406
+
 				</div>
 			</div>
-			
-
-			
-
 		</div>
-
 		<footer>
 			<div class="qr">
 				<img src="assets/img/qrcode.svg" />

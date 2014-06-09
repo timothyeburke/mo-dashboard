@@ -1,3 +1,7 @@
+setTimeout(function () {
+	window.location.reload(true);
+}, 1000 * 60 * 60);
+
 var weatherIcons = {
 	"clear-day":           "",
 	"clear-night":         "",
@@ -31,5 +35,5 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 		});
 	};
 	getData();
-	// setInterval(getData, 5000);
+	setInterval(getData, 5000);
 });
