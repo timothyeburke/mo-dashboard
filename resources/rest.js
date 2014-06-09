@@ -229,9 +229,7 @@ module.exports = function (app) {
 
 	setInterval(getBikeshareData, 1000 * 60);
 
-
-
-	// Stop JSON REST endpoint
+	// Data JSON REST endpoint
 	app.get('/data.json', function (req, res) {
 		res.contentType('application/json');
 		stopData.busses = [stopData.south, stopData.toUSt, stopData.G8West];
@@ -249,5 +247,4 @@ module.exports = function (app) {
 			});
 		res.send(stopData);
 	});
-
 }
