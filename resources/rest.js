@@ -1,5 +1,6 @@
 var http     = require('http');
 var Forecast = require('forecast.io');
+var xml      = require('xml2js');
 
 module.exports = function (app) {
 	var default_key = '&api_key=d46qgb277rn9hq8q8emvqyfr';
@@ -35,6 +36,7 @@ module.exports = function (app) {
 			Predictions: [],
 			StationName: "Shaw / Howard U"
 		},
+		bikeshareStations: [],
 		incidents: [],
 		weather: {}
 	};
@@ -173,9 +175,67 @@ module.exports = function (app) {
 	// Then every minute
 	setInterval(getTrainPredictions, 1000 * 30);
 
+	var getBikeshareData = function () {
+		var processBikeshareXML = function (data) {
+			stopData.bikeshareStations.length = 0;
+			xml.parseString(data, function(err, result) {
+				var stations = result.stations.station;
+				stations.forEach(function (station) {
+					var id = station.id[0];
+					if (id == '94' || id == '250' || id == '42') {
+						stopData.bikeshareStations.push({
+							id: station.id[0],
+							name: station.name[0],
+							terminalName: station.terminalName[0],
+							lastCommWithServer: station.lastCommWithServer[0],
+							lat: station.lat[0],
+							lon: station.long[0],
+							nbBikes: station.nbBikes[0],
+							nbEmptyDocks: station.nbEmptyDocks[0]
+						});
+					}
+				});
+			});
+		}
+		var options = {
+			hostname: 'www.capitalbikeshare.com',
+			port: 80,
+			path: '/data/stations/bikeStations.xml',
+			method: 'GET'
+		};
+		var temp = '';
+		var request = http.get(options, function (response) {
+			response.on('data', function (data) {
+				temp += data;
+				if (temp.indexOf("</stations>") != -1) {
+					processBikeshareXML(temp);
+				}
+			});
+		});
+	};
+
+	getBikeshareData();
+
+	setInterval(getBikeshareData, 1000 * 60);
+
+
+
 	// Stop JSON REST endpoint
 	app.get('/data.json', function (req, res) {
 		res.contentType('application/json');
+		stopData.busses = [stopData.south, stopData.toUSt, stopData.G8West];
+		stopData.trains = [stopData.B35, stopData.B04, stopData.E02];
+		stopData.trains.forEach(function (station) {
+				if (station) {
+					station.Predictions.forEach(function (train) {
+						if (train.Line != "RD" && train.Line != "GR" && 
+							train.Line != "YL" && train.Line != "SV" && 
+							train.Line != "SV" && train.Line != "OR") {
+							train.Line = "";
+						}
+					});
+				}
+			});
 		res.send(stopData);
 	});
 

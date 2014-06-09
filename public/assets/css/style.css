@@ -1571,7 +1571,7 @@ header {
     margin-bottom: 20px;
     width: 100%;
     color: black;
-    background-color: #818386; }
+    background-color: #b3b5b8; }
     #content .entry .train {
       background-image: url(../img/metro/metro.png);
       display: inline-block;
@@ -1614,7 +1614,7 @@ header {
       #content .entry table .OR {
         background-image: url(../img/metro/OR.svg.png); }
   #content .news {
-    background-color: #818386;
+    background-color: #b3b5b8;
     padding: 20px; }
     #content .news .title {
       font-size: 2.5rem; }
@@ -1627,7 +1627,7 @@ footer {
   left: 0px;
   height: 80px;
   padding: 10px;
-  background-color: #818386; }
+  background-color: #b3b5b8; }
   footer .qr {
     float: right; }
     footer .qr img {

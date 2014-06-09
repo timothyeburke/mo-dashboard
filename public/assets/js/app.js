@@ -25,20 +25,9 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 		$scope.now = new Date();
 		$http.get('data.json').success(function(data) {
 			$scope.incidents = data.incidents;
-			$scope.temperature = data.weather.temperature;
-			$scope.busses = [data.south, data.toUSt, data.G8West];
-			$scope.trains = [data.B35, data.B04, data.E02];
-			$scope.trains.forEach(function (station) {
-				if (station) {
-					station.Predictions.forEach(function (train) {
-						if (train.Line != "RD" && train.Line != "GR" && 
-							train.Line != "YL" && train.Line != "SV" && 
-							train.Line != "SV" && train.Line != "OR") {
-							train.Line = "";
-						}
-					});
-				}
-			});
+			$scope.weather = data.weather;
+			$scope.busses = data.busses;
+			$scope.trains = data.trains;
 		});
 	};
 	getData();

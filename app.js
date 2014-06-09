@@ -1,9 +1,10 @@
 var express = require('express');
 var app     = express();
 
-if (process.env.PORT) {
+
+// if (process.env.PORT) {
 	var rest = require('./resources/rest')(app);	
-}
+// }
 
 // simple logger
 app.use(function(req, res, next){
