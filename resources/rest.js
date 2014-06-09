@@ -37,7 +37,7 @@ module.exports = function (app) {
 			Predictions: [],
 			StationName: "Shaw / Howard U"
 		},
-		bikeshareStations: [],
+		bikeshare: [],
 		incidents: [],
 		weather: {}
 	};
@@ -188,13 +188,13 @@ module.exports = function (app) {
 
 	var getBikeshareData = function () {
 		var processBikeshareXML = function (data) {
-			stopData.bikeshareStations.length = 0;
+			stopData.bikeshare.length = 0;
 			xml.parseString(data, function(err, result) {
 				var stations = result.stations.station;
 				stations.forEach(function (station) {
 					var id = station.id[0];
 					if (id == '94' || id == '250' || id == '42') {
-						stopData.bikeshareStations.push({
+						stopData.bikeshare.push({
 							id: station.id[0],
 							name: station.name[0],
 							terminalName: station.terminalName[0],
@@ -232,11 +232,11 @@ module.exports = function (app) {
 	// Data JSON REST endpoint
 	app.get('/data.json', function (req, res) {
 		var data = {
-			bikeshareStations: stopData.bikeshareStations,
-			busses:            [stopData.south, stopData.toUSt, stopData.G8West],
-			incidents:         stopData.incidents,
-			trains:            [stopData.B35, stopData.B04, stopData.E02],
-			weather:           stopData.weather
+			bikeshare: stopData.bikeshare,
+			busses:    [stopData.south, stopData.toUSt, stopData.G8West],
+			incidents: stopData.incidents,
+			trains:    [stopData.B35, stopData.B04, stopData.E02],
+			weather:   stopData.weather
 
 		};
 		data.trains.forEach(function (station) {
