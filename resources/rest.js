@@ -231,10 +231,15 @@ module.exports = function (app) {
 
 	// Data JSON REST endpoint
 	app.get('/data.json', function (req, res) {
-		res.contentType('application/json');
-		stopData.busses = [stopData.south, stopData.toUSt, stopData.G8West];
-		stopData.trains = [stopData.B35, stopData.B04, stopData.E02];
-		stopData.trains.forEach(function (station) {
+		var data = {
+			bikeshareStations: stopData.bikeshareStations,
+			busses:            [stopData.south, stopData.toUSt, stopData.G8West],
+			incidents:         stopData.incidents,
+			trains:            [stopData.B35, stopData.B04, stopData.E02],
+			weather:           stopData.weather
+
+		};
+		data.trains.forEach(function (station) {
 				if (station) {
 					station.Predictions.forEach(function (train) {
 						if (train.Line != "RD" && train.Line != "GR" && 
@@ -245,6 +250,8 @@ module.exports = function (app) {
 					});
 				}
 			});
-		res.send(stopData);
+
+		res.contentType('application/json');
+		res.send(data);
 	});
 }
