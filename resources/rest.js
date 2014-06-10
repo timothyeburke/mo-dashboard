@@ -1,4 +1,5 @@
 var http     = require('http');
+var https    = require('https');
 var Forecast = require('forecast.io');
 var xml      = require('xml2js');
 var _        = require('underscore');
@@ -38,6 +39,7 @@ module.exports = function (app) {
 			StationName: "Shaw / Howard U"
 		},
 		bikeshare: [],
+		car2go: [],
 		incidents: [],
 		weather: {}
 	};
@@ -61,7 +63,6 @@ module.exports = function (app) {
 						temp += data;
 						stopData[direction] = JSON.parse(temp);
 					} catch (err) {
-						console.log(err);
 						stopData[direction] = errorObject;
 					}
 					if (stopData[direction] == undefined) {
@@ -107,10 +108,8 @@ module.exports = function (app) {
 						if (incident.Description.indexOf(".") != -1) {
 							incident.Description = incident.Description.split(".")[0] + ".";
 						}
-
 					});
 				} catch (err) {
-					console.log(err);
 					stopData.incidents = [];
 				}
 				if (stopData.incidents == undefined) {
@@ -172,7 +171,6 @@ module.exports = function (app) {
 							}
 						});
 					} catch (err) {
-						console.log(err);
 						stopData[station].Predictions = [];
 					}
 				});
@@ -236,11 +234,59 @@ module.exports = function (app) {
 
 	setInterval(getBikeshareData, 1000 * 60);
 
+	var getCar2GoData = function () {
+		var isInBbox = function (lon, lat, bbox) {
+			// This only works in the northern and western hemispheres.  Meh?
+			return lon <= bbox.minLon && lon >= bbox.maxLon && lat >= bbox.minLat && lat <= bbox.maxLat;
+		}
+		
+		var bbox = {
+			minLon: -76.997102,
+			maxLon: -77.008934,
+			minLat: 38.908567,
+			maxLat: 38.920694
+		};
+
+		var options = {
+			hostname: 'www.car2go.com',
+			port: 443,
+			path: '/api/v2.0/vehicles?loc=Washington%20DC&format=json',
+			method: 'GET'
+		};
+		var temp = '';
+		var request = https.get(options, function(response) {
+			response.on('data', function (data) {
+				try {
+					temp += data;
+					var car2go = JSON.parse(temp);
+					stopData.car2go.length = 0;
+					car2go.placemarks.forEach(function (car) {
+						car.coordinates = eval(car.coordinates);
+						if (isInBbox(car.coordinates[0], car.coordinates[1], bbox)) {
+							stopData.car2go.push(car);
+						}
+					});
+				} catch (err) {
+				}
+			});
+			response.on('error', function () {
+				console.log("Error getting car2go data.");
+				stopData.car2go.length = 0;
+			});
+		});
+		request.end();
+	};
+
+	getCar2GoData();
+
+	setInterval(getCar2GoData, 1000 * 60);
+
 	// Data JSON REST endpoint
 	app.get('/data.json', function (req, res) {
 		var data = {
 			bikeshare: stopData.bikeshare,
 			busses:    [stopData.south, stopData.toUSt, stopData.G8West],
+			car2go:    stopData.car2go,
 			incidents: stopData.incidents,
 			trains:    [stopData.B35, stopData.B04, stopData.E02],
 			weather:   stopData.weather
