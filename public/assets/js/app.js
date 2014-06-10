@@ -25,13 +25,17 @@ var weatherIcons = {
 var dashboardApp = angular.module('dashboardApp', []);
 
 dashboardApp.controller('DashboardController', function($scope, $http) {
-	var getData = function () {
+	setInterval(function () {
 		$scope.now = new Date();
+	}, 1000);
+	var getData = function () {
 		$http.get('data.json').success(function(data) {
+			$scope.bikeshare = data.bikeshare;
+			$scope.busses    = data.busses;
+			$scope.car2go    = data.car2go;
 			$scope.incidents = data.incidents;
-			$scope.weather = data.weather;
-			$scope.busses = data.busses;
-			$scope.trains = data.trains;
+			$scope.trains    = data.trains;
+			$scope.weather   = data.weather;
 		});
 	};
 	getData();
