@@ -5,11 +5,11 @@ var xml      = require('xml2js');
 var _        = require('underscore');
 
 module.exports = function (app) {
-	var default_key = '&api_key=d46qgb277rn9hq8q8emvqyfr';
-	var train_key = '&api_key=nhc5bsanvc3b565fytmb5bz2';
-	var bus_key = '&api_key=9kcrbzzhv34vpgb4pecb6g5n';
+	var default_wmata_key = '&api_key=d46qgb277rn9hq8q8emvqyfr';
+	var train_wmata_key = '&api_key=nhc5bsanvc3b565fytmb5bz2';
+	var bus_wmata_key = '&api_key=9kcrbzzhv34vpgb4pecb6g5n';
 
-	var stopData = {
+	var db = {
 		south: { 
 			Predictions: [], 
 			StopName: ""
@@ -53,7 +53,7 @@ module.exports = function (app) {
 			var options = {
 				hostname: 'api.wmata.com',
 				port: 80,
-				path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + bus_key,
+				path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + bus_wmata_key,
 				method: 'GET'
 			};
 			var temp = '';
@@ -61,16 +61,16 @@ module.exports = function (app) {
 				response.on('data', function (data) {
 					try {
 						temp += data;
-						stopData[direction] = JSON.parse(temp);
+						db[direction] = JSON.parse(temp);
 					} catch (err) {
-						stopData[direction] = errorObject;
+						db[direction] = errorObject;
 					}
-					if (stopData[direction] == undefined) {
-					stopData.incidents = errorObject;
+					if (db[direction] == undefined) {
+					db.incidents = errorObject;
 				}
 				});
 				response.on('error', function () {
-					stopData[direction] = errorObject;
+					db[direction] = errorObject;
 				});
 			});
 			request.end();
@@ -80,18 +80,14 @@ module.exports = function (app) {
 		fetchPredictions(1001425, "toUSt");
 		fetchPredictions(1001715, "G8West")
 	};
-
-	// First time
 	getBusPredictions();
-
-	// Then every minute
 	setInterval(getBusPredictions, 1000 * 25); 
 
 	var getIncidents = function () {
 		var options = {
 			hostname: 'api.wmata.com',
 			port: 80,
-			path: '/Incidents.svc/json/Incidents?' + default_key,
+			path: '/Incidents.svc/json/Incidents?' + default_wmata_key,
 			method: 'GET'
 		};
 		var temp = '';
@@ -99,8 +95,8 @@ module.exports = function (app) {
 			response.on('data', function (data) {
 				try {
 					temp += data;
-					stopData.incidents = JSON.parse(temp).Incidents;
-					stopData.incidents.forEach(function (incident) {
+					db.incidents = JSON.parse(temp).Incidents;
+					db.incidents.forEach(function (incident) {
 						incident.affected = _.compact(incident.LinesAffected.split(';'));
 						if (incident.Description.indexOf(":") != -1) {
 							incident.Description = incident.Description.split(":")[1];
@@ -110,21 +106,19 @@ module.exports = function (app) {
 						}
 					});
 				} catch (err) {
-					stopData.incidents = [];
+					db.incidents = [];
 				}
-				if (stopData.incidents == undefined) {
-					stopData.incidents = [];
+				if (db.incidents == undefined) {
+					db.incidents = [];
 				}
 			});
 			response.on('error', function () {
-				stopData.incidents = []
+				db.incidents = []
 			});
 		});
 		request.end();
 	};
-
 	getIncidents();
-
 	setInterval(getIncidents, 1000 * 60 * 5);
 
 	var getWeather = function () {
@@ -139,14 +133,12 @@ module.exports = function (app) {
 		forecast.get(lat, lon, function (err, res, data) {
 			if (err) {
 				console.log(err);
-				stopData.weather = {};
+				db.weather = {};
 			}
-			stopData.weather = data.currently;
+			db.weather = data.currently;
 		});
 	};
-
 	getWeather();
-
 	setInterval(getWeather, 1000 * 60 * 10);
 
 	var getTrainPredictions = function () {
@@ -154,7 +146,7 @@ module.exports = function (app) {
 			var options = {
 				hostname: 'api.wmata.com',
 				port: 80,
-				path: '/StationPrediction.svc/json/GetPrediction/' + station + '?' + train_key,
+				path: '/StationPrediction.svc/json/GetPrediction/' + station + '?' + train_wmata_key,
 				method: 'GET'
 			};
 			var temp = '';
@@ -162,8 +154,8 @@ module.exports = function (app) {
 				response.on('data', function (data) {
 					try {
 						temp += data;
-						stopData[station].Predictions = JSON.parse(temp).Trains;
-						stopData[station].Predictions.forEach(function (train) {
+						db[station].Predictions = JSON.parse(temp).Trains;
+						db[station].Predictions.forEach(function (train) {
 							if (train.Line != "RD" && train.Line != "GR" && 
 								train.Line != "YL" && train.Line != "SV" && 
 								train.Line != "SV" && train.Line != "OR") {
@@ -171,11 +163,11 @@ module.exports = function (app) {
 							}
 						});
 					} catch (err) {
-						stopData[station].Predictions = [];
+						db[station].Predictions = [];
 					}
 				});
 				response.on('error', function () {
-					stopData[station].Predictions = [];
+					db[station].Predictions = [];
 				});
 			});
 			request.end();
@@ -184,28 +176,24 @@ module.exports = function (app) {
 		fetchPredictions("B04");
 		fetchPredictions("E02");
 	};
-
-	// First time
 	getTrainPredictions();
-
-	// Then every minute
 	setInterval(getTrainPredictions, 1000 * 30);
 
 	var getBikeshareData = function () {
 		var processBikeshareXML = function (data) {
-			stopData.bikeshare.length = 0;
+			db.bikeshare.length = 0;
 			xml.parseString(data, function(err, result) {
 				var stations = result.stations.station;
 				stations.forEach(function (station) {
 					var id = station.id[0];
 					if (id == '94' || id == '250' || id == '42') {
-						stopData.bikeshare.push({
+						db.bikeshare.push({
 							id: station.id[0],
 							name: station.name[0],
 							terminalName: station.terminalName[0],
 							lastCommWithServer: station.lastCommWithServer[0],
-							lat: station.lat[0],
-							lon: station.long[0],
+							latitude: station.lat[0],
+							longitude: station.long[0],
 							nbBikes: station.nbBikes[0],
 							nbEmptyDocks: station.nbEmptyDocks[0]
 						});
@@ -229,22 +217,20 @@ module.exports = function (app) {
 			});
 		});
 	};
-
 	getBikeshareData();
-
 	setInterval(getBikeshareData, 1000 * 60);
 
 	var getCar2GoData = function () {
 		var isInBbox = function (lon, lat, bbox) {
-			// This only works in the northern and western hemispheres.  Meh?
+			// This only works in the northern and western hemisphere.  Meh?
 			return lon <= bbox.minLon && lon >= bbox.maxLon && lat >= bbox.minLat && lat <= bbox.maxLat;
 		}
 		
 		var bbox = {
 			minLon: -76.997102,
 			maxLon: -77.008934,
-			minLat: 38.908567,
-			maxLat: 38.920694
+			minLat:  38.908567,
+			maxLat:  38.920694
 		};
 
 		var options = {
@@ -259,11 +245,11 @@ module.exports = function (app) {
 				try {
 					temp += data;
 					var car2go = JSON.parse(temp);
-					stopData.car2go.length = 0;
+					db.car2go.length = 0;
 					car2go.placemarks.forEach(function (car) {
 						car.coordinates = eval(car.coordinates);
 						if (isInBbox(car.coordinates[0], car.coordinates[1], bbox)) {
-							stopData.car2go.push(car);
+							db.car2go.push(car);
 						}
 					});
 				} catch (err) {
@@ -271,25 +257,23 @@ module.exports = function (app) {
 			});
 			response.on('error', function () {
 				console.log("Error getting car2go data.");
-				stopData.car2go.length = 0;
+				db.car2go.length = 0;
 			});
 		});
 		request.end();
 	};
-
 	getCar2GoData();
-
 	setInterval(getCar2GoData, 1000 * 60);
 
 	// Data JSON REST endpoint
 	app.get('/data.json', function (req, res) {
 		var data = {
-			bikeshare: stopData.bikeshare,
-			busses:    [stopData.south, stopData.toUSt, stopData.G8West],
-			car2go:    stopData.car2go,
-			incidents: stopData.incidents,
-			trains:    [stopData.B35, stopData.B04, stopData.E02],
-			weather:   stopData.weather
+			bikeshare: db.bikeshare,
+			busses:    [db.south, db.toUSt, db.G8West],
+			car2go:    db.car2go,
+			incidents: db.incidents,
+			trains:    [db.B35, db.B04, db.E02],
+			weather:   db.weather
 		};
 
 		res.contentType('application/json');
