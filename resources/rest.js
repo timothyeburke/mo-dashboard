@@ -164,6 +164,13 @@ module.exports = function (app) {
 					try {
 						temp += data;
 						stopData[station].Predictions = JSON.parse(temp).Trains;
+						stopData[station].Predictions.forEach(function (train) {
+							if (train.Line != "RD" && train.Line != "GR" && 
+								train.Line != "YL" && train.Line != "SV" && 
+								train.Line != "SV" && train.Line != "OR") {
+								train.Line = "";
+							}
+						});
 					} catch (err) {
 						console.log(err);
 						stopData[station].Predictions = [];
@@ -237,19 +244,7 @@ module.exports = function (app) {
 			incidents: stopData.incidents,
 			trains:    [stopData.B35, stopData.B04, stopData.E02],
 			weather:   stopData.weather
-
 		};
-		data.trains.forEach(function (station) {
-				if (station) {
-					station.Predictions.forEach(function (train) {
-						if (train.Line != "RD" && train.Line != "GR" && 
-							train.Line != "YL" && train.Line != "SV" && 
-							train.Line != "SV" && train.Line != "OR") {
-							train.Line = "";
-						}
-					});
-				}
-			});
 
 		res.contentType('application/json');
 		res.send(data); 
