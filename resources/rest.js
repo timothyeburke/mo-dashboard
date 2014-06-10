@@ -44,6 +44,18 @@ module.exports = function (app) {
 		weather: {}
 	};
 
+	var bbox = {
+		minLon: -76.997102,
+		maxLon: -77.008934,
+		minLat:  38.908567,
+		maxLat:  38.920694
+	};
+
+	var isInBbox = function (lon, lat, bbox) {
+		// This only works in the northern and western hemisphere.  Meh?
+		return lon <= bbox.minLon && lon >= bbox.maxLon && lat >= bbox.minLat && lat <= bbox.maxLat;
+	}
+
 	var getBusPredictions = function () {
 		var errorObject = {
 			Predictions: [],
@@ -186,7 +198,9 @@ module.exports = function (app) {
 				var stations = result.stations.station;
 				stations.forEach(function (station) {
 					var id = station.id[0];
-					if (id == '94' || id == '250' || id == '42') {
+					var lon = station.long[0];
+					var lat = station.lat[0];
+					if (isInBbox(lon, lat, bbox)) {
 						db.bikeshare.push({
 							id: station.id[0],
 							name: station.name[0],
@@ -221,18 +235,6 @@ module.exports = function (app) {
 	setInterval(getBikeshareData, 1000 * 60);
 
 	var getCar2GoData = function () {
-		var isInBbox = function (lon, lat, bbox) {
-			// This only works in the northern and western hemisphere.  Meh?
-			return lon <= bbox.minLon && lon >= bbox.maxLon && lat >= bbox.minLat && lat <= bbox.maxLat;
-		}
-		
-		var bbox = {
-			minLon: -76.997102,
-			maxLon: -77.008934,
-			minLat:  38.908567,
-			maxLat:  38.920694
-		};
-
 		var options = {
 			hostname: 'www.car2go.com',
 			port: 443,
