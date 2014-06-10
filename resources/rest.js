@@ -45,14 +45,14 @@ module.exports = function (app) {
 	};
 
 	var bbox = {
-		minLon: -77.008934,
-		maxLon: -76.997102,
-		minLat:  38.908567,
-		maxLat:  38.920694
+		westLon:  -77.008934,
+		eastLon:  -76.997102,
+		southLat:  38.908567,
+		northLat:  38.920694
 	};
 
-	var isInBbox = function(lon, lat, minLon, maxLon, minLat, maxLat) { 
-		return minLon <= lon && lon <= maxLon && minLat <= lat && lat <= maxLat; 
+	var isInBbox = function(lon, lat, westLon, eastLon, southLat, northLat) { 
+		return westLon <= lon && lon <= eastLon && southLat <= lat && lat <= northLat; 
 	}
 
 	var getBusPredictions = function () {
@@ -199,7 +199,7 @@ module.exports = function (app) {
 					var id = station.id[0];
 					var lon = station.long[0];
 					var lat = station.lat[0];
-					if (isInBbox(lon, lat, bbox.minLon, bbox.maxLon, bbox.minLat, bbox.maxLat)) {
+					if (isInBbox(lon, lat, bbox.westLon, bbox.eastLon, bbox.southLat, bbox.northLat)) {
 						db.bikeshare.push({
 							id: station.id[0],
 							name: station.name[0],
@@ -251,7 +251,7 @@ module.exports = function (app) {
 						car.coordinates = eval(car.coordinates);
 						var lon = car.coordinates[0];
 						var lat = car.coordinates[1];
-						if (isInBbox(lon, lat, bbox.minLon, bbox.maxLon, bbox.minLat, bbox.maxLat)) {
+						if (isInBbox(lon, lat, bbox.westLon, bbox.eastLon, bbox.southLat, bbox.northLat)) {
 							db.car2go.push(car);
 						}
 					});
