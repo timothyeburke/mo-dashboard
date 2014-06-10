@@ -25,9 +25,12 @@ var weatherIcons = {
 var dashboardApp = angular.module('dashboardApp', []);
 
 dashboardApp.controller('DashboardController', function($scope, $http) {
-	setInterval(function () {
+	var updateTime = function () {
 		$scope.now = new Date();
-	}, 1000);
+	};
+	updateTime();
+	setInterval(updateTime, 1000);
+	
 	var getData = function () {
 		$http.get('data.json').success(function(data) {
 			$scope.bikeshare = data.bikeshare;
