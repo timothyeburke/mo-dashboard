@@ -5,7 +5,9 @@
 		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="assets/css/style.css" />
 		<script src="assets/js/lib/angular.min.js"></script>
-		
+		<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
+		<script src='//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js'></script>
+		<script src='assets/js/lib/angular-google-maps.min.js'></script>
 	</head>
 	<body ng-controller="DashboardController">
 		<header id="main-header">
@@ -63,7 +65,7 @@
 				</div>
 			</div>
 			<div class="split3">
-				<div class="news">
+				<!-- <div class="news">
 					<span class="title">
 					News and Announcements
 					</span>
@@ -75,6 +77,25 @@
 					to me.<br /><br /><br /><br />
 					-Tim, Unit 406
 
+				</div> -->
+				<div class="map">
+					<google-map center="map.center" zoom="map.zoom" bounds="map.bounds">
+						
+						<marker ng-repeat="car in car2go" 
+								coords="car" 
+								icon="'assets/img/car2go.png'"
+								fit="true">
+						</marker>
+						<marker ng-repeat="station in bikeshare"
+								coords="station"
+								icon="'assets/img/bikeshare.png'"
+								fit="true">
+						</marker>
+						<marker coords="map.center"
+								icon="'assets/img/MO.icon.png'"
+								fit="true">
+						</marker>
+					</google-map>
 				</div>
 			</div>
 		</div>

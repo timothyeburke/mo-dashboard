@@ -1631,6 +1631,12 @@ header {
     white-space: normal; }
     #content .news .title {
       font-size: 2.5rem; }
+  #content .map {
+    background-color: #b3b5b8;
+    padding: 20px;
+    white-space: normal; }
+    #content .map .angular-google-map-container {
+      height: 600px; }
 
 footer {
   display: none;
