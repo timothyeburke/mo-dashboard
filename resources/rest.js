@@ -252,6 +252,8 @@ module.exports = function (app) {
 						var lon = car.coordinates[0];
 						var lat = car.coordinates[1];
 						if (isInBbox(lon, lat, bbox.westLon, bbox.eastLon, bbox.southLat, bbox.northLat)) {
+							car.longitude = lon;
+							car.latitude  = lat;
 							db.car2go.push(car);
 						}
 					});

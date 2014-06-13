@@ -22,15 +22,33 @@ var weatherIcons = {
 
 // Angular Stuff below here:
 
-var dashboardApp = angular.module('dashboardApp', []);
+var dashboardApp = angular.module('dashboardApp', ['google-maps']);
 
 dashboardApp.controller('DashboardController', function($scope, $http) {
+	$scope.map = {
+		center: {
+			latitude:   38.9152131,
+			longitude: -77.0033354
+		},
+		zoom: 16,
+		bounds: {
+			southwest: {
+				longitude: -77.008934,
+				latitude:   38.908567
+			},
+			northeast: {
+				longitude: -76.997102,
+				latitude:   38.920694
+			}
+		}
+	};
+
 	var updateTime = function () {
 		$scope.now = new Date();
 	};
 	updateTime();
 	setInterval(updateTime, 1000);
-	
+
 	var getData = function () {
 		$http.get('data.json').success(function(data) {
 			$scope.bikeshare = data.bikeshare;
