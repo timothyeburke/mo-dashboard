@@ -27,6 +27,10 @@ var dashboardApp = angular.module('dashboardApp', ['google-maps']);
 dashboardApp.controller('DashboardController', function($scope, $http) {
 	$scope.map = {
 		center: {
+			latitude:   38.9155,
+			longitude: -77.005
+		},
+		MO: {
 			latitude:   38.9152131,
 			longitude: -77.0033354
 		},
