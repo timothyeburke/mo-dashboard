@@ -2,29 +2,15 @@ setTimeout(function () {
 	window.location.reload(true);
 }, 1000 * 60 * 60);
 
-var weatherIcons = {
-	"clear-day":           "",
-	"clear-night":         "",
-	"rain":                "",
-	"snow":                "",
-	"sleet":               "",
-	"wind":                "",
-	"fog":                 "",
-	"cloudy":              "",
-	"partly-cloudy-day":   "",
-	"partly-cloudy-night": "",
-	"hail":                "", // Reserved for future use
-	"thunderstorm":        "", // Reserved for future use
-	"tornado":             ""  // Reserved for future use
-};
-
-
-
 // Angular Stuff below here:
 
 var dashboardApp = angular.module('dashboardApp', ['google-maps']);
 
 dashboardApp.controller('DashboardController', function($scope, $http) {
+	var skycons = new Skycons({"color": "white"});
+	skycons.add("weather-icon", "clear-day");
+	skycons.play();
+
 	$scope.map = {
 		center: {
 			latitude:   38.9155,
@@ -77,6 +63,7 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 			$scope.incidents = data.incidents;
 			$scope.trains    = data.trains;
 			$scope.weather   = data.weather;
+			skycons.set("weather-icon", data.weather.icon);
 		});
 	};
 	getData();

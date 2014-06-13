@@ -70,6 +70,21 @@ header {
 	    font-family: 'Fjalla One', sans-serif;
 	    font-size: 7.5rem;
 		line-height: $header-row-content-height;
+		overflow: visible;
+		white-space: nowrap;
+		
+		#weather-icon {
+			margin-left: -75px;
+			display: inline-block;
+			height: 100px;
+			width: 200px;
+		}
+
+		#temperature {
+			margin-left: -50px;
+			display: inline-block;
+			vertical-align: top;
+		}
 	}
 }
 

@@ -5,15 +5,19 @@
 		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="assets/css/style.css" />
 		<script src="assets/js/lib/angular.min.js"></script>
-		<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
-		<script src='//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js'></script>
-		<script src='assets/js/lib/angular-google-maps.min.js'></script>
+		<script src="//maps.googleapis.com/maps/api/js?sensor=false"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js"></script>
+		<script src="assets/js/lib/angular-google-maps.min.js"></script>
+		<script src="assets/js/lib/skycons.js"></script>
 	</head>
 	<body ng-controller="DashboardController">
 		<header id="main-header">
 			<img src="assets/img/header.png" />	
 			<div id="weather">
-				{{weather.temperature | number: 0}}&deg;
+				<canvas id="weather-icon"></canvas>
+				<div id="temperature">
+					{{weather.temperature | number: 0}}&deg;
+				</div>
 			</div>
 			<div id="clock">{{ now | date : 'M/d/yyyy&nbsp;&nbsp;h:mm a'}}</div>
 		</header>

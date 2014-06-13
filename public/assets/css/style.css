@@ -1520,7 +1520,18 @@ header {
     margin-right: auto;
     font-family: 'Fjalla One', sans-serif;
     font-size: 7.5rem;
-    line-height: 100px; }
+    line-height: 100px;
+    overflow: visible;
+    white-space: nowrap; }
+    #main-header #weather #weather-icon {
+      margin-left: -75px;
+      display: inline-block;
+      height: 100px;
+      width: 200px; }
+    #main-header #weather #temperature {
+      margin-left: -50px;
+      display: inline-block;
+      vertical-align: top; }
 
 .icon {
   display: inline-block;
