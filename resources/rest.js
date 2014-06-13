@@ -74,14 +74,14 @@ module.exports = function (app) {
 						temp += data;
 						db[direction] = JSON.parse(temp);
 					} catch (err) {
-						db[direction] = errorObject;
+						// db[direction] = errorObject;
 					}
 					if (db[direction] == undefined) {
-					db.incidents = errorObject;
-				}
+						db[direction] = errorObject;
+					}
 				});
 				response.on('error', function () {
-					db[direction] = errorObject;
+					// db[direction] = errorObject;
 				});
 			});
 			request.end();
