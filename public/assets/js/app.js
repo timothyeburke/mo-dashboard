@@ -54,10 +54,26 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 	setInterval(updateTime, 1000);
 
 	var getData = function () {
+		var same = function (array1, array2, comparator) {
+			if (!array1 || !array2) return false;
+			if (array1.length != array2.length) return false;
+			var result = true;
+			for (var i = 0; i < array1.length; i++) {
+				result = result && (array1[i][comparator] == array2[i][comparator]);
+			}
+			return result;
+		}
+
 		$http.get('data.json').success(function(data) {
-			$scope.bikeshare = data.bikeshare;
+			if (!same($scope.bikeshare, data.bikeshare, "nbBikes")) {
+				$scope.bikeshare = data.bikeshare;
+				console.log("bikeshare different");
+			}
 			$scope.busses    = data.busses;
-			$scope.car2go    = data.car2go;
+			if (!same($scope.car2go, data.car2go, "vin")) {
+				$scope.car2go = data.car2go;
+				console.log("car2go different");
+			}
 			$scope.incidents = data.incidents;
 			$scope.trains    = data.trains;
 			$scope.weather   = data.weather;
