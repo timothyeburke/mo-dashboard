@@ -90,6 +90,16 @@
 								coords="station"
 								icon="'assets/img/bikeshare.png'"
 								fit="true">
+							<marker-label ng-if="station.nbBikes < 10"
+								content="station.nbBikes + ' bikes'"
+								anchor="26 47"
+								class="bike-label">
+							</marker-label>
+							<marker-label ng-if="station.nbBikes >= 10"
+								content="station.nbBikes + ' bikes'"
+								anchor="30 47"
+								class="bike-label">
+							</marker-label>
 						</marker>
 						<marker coords="map.MO"
 								icon="'assets/img/MO.icon.png'"

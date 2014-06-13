@@ -212,6 +212,11 @@ header {
 			// left: 20px;
 			height: 600px;
 		}
+
+		.bike-label {
+			@extend %source-sans-semibold;
+			font-size: 1.5rem;
+		}
 	}
 }
 
