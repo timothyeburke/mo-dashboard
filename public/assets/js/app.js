@@ -53,12 +53,10 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 		$http.get('data.json').success(function(data) {
 			if (!same($scope.bikeshare, data.bikeshare, "nbBikes")) {
 				$scope.bikeshare = data.bikeshare;
-				console.log("bikeshare different");
 			}
 			$scope.busses    = data.busses;
 			if (!same($scope.car2go, data.car2go, "vin")) {
 				$scope.car2go = data.car2go;
-				console.log("car2go different");
 			}
 			$scope.incidents = data.incidents;
 			$scope.trains    = data.trains;
