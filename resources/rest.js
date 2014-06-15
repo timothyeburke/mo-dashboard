@@ -45,8 +45,8 @@ module.exports = function (app) {
 	};
 
 	var bbox = {
-		westLon:  -77.010000,
-		eastLon:  -76.990000,
+		westLon:  -77.012500,
+		eastLon:  -76.997900,
 		southLat:  38.908567,
 		northLat:  38.920694
 	};
