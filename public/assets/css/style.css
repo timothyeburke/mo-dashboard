@@ -1484,7 +1484,9 @@ p {
 
 body {
   background-color: #464646;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  height: 100%;
+  position: relative; }
 
 header {
   height: 160px;
@@ -1576,6 +1578,7 @@ header {
       padding-bottom: 5px; }
 
 #content {
+  height: 400px;
   white-space: nowrap; }
   #content .split1 {
     display: inline-block;
@@ -1590,6 +1593,7 @@ header {
     padding-right: 0px;
     vertical-align: top; }
   #content .split3 {
+    height: 100%;
     display: inline-block;
     width: 46%;
     padding: 20px;
@@ -1635,9 +1639,11 @@ header {
   #content .map {
     background-color: #b3b5b8;
     padding: 20px;
-    white-space: normal; }
-    #content .map .angular-google-map-container {
-      height: 600px; }
+    white-space: normal;
+    height: 100%; }
+    #content .map .angular-google-map, #content .map .angular-google-map-container {
+      width: 100%;
+      height: 100%; }
     #content .map .bike-label {
       font-size: 1.5rem; }
 

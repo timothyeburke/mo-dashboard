@@ -12,44 +12,47 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 	skycons.play();
 
 	$scope.map = {
+		control: {},
 		center: {
 			latitude:   38.9155,
-			longitude: -77.005
+			longitude: -77.0050
 		},
 		MO: {
 			latitude:   38.9152131,
 			longitude: -77.0033354
 		},
 		zoom: 16,
-		bounds: {
-			southwest: {
-				longitude: -77.008934,
-				latitude:   38.908567
-			},
-			northeast: {
-				longitude: -76.997102,
-				latitude:   38.920694
-			}
+		options: {
+			disableDefaultUI: true
 		}
 	};
 
+	var updateContentHeight = function () {
+		var incidentsHeight = document.getElementById("incidents").clientHeight;
+		var headerHeight = document.getElementById("main-header").clientHeight;
+		var viewportHeight = document.documentElement.clientHeight;
+		var content = document.getElementById("content");
+		content.setAttribute("style","height: " + (viewportHeight - incidentsHeight - headerHeight) + "px;");
+		$scope.map.control.refresh($scope.map.center);
+	};
+	
 	var updateTime = function () {
 		$scope.now = new Date();
 	};
 	updateTime();
 	setInterval(updateTime, 1000);
 
-	var getData = function () {
-		var same = function (array1, array2, comparator) {
-			if (!array1 || !array2) return false;
-			if (array1.length != array2.length) return false;
-			var result = true;
-			for (var i = 0; i < array1.length; i++) {
-				result = result && (array1[i][comparator] == array2[i][comparator]);
-			}
-			return result;
+	var same = function (array1, array2, comparator) {
+		if (!array1 || !array2) return false;
+		if (array1.length != array2.length) return false;
+		var result = true;
+		for (var i = 0; i < array1.length; i++) {
+			result = result && (array1[i][comparator] == array2[i][comparator]);
 		}
+		return result;
+	}
 
+	var getData = function () {
 		$http.get('data.json').success(function(data) {
 			if (!same($scope.bikeshare, data.bikeshare, "nbBikes")) {
 				$scope.bikeshare = data.bikeshare;
@@ -62,6 +65,7 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 			$scope.trains    = data.trains;
 			$scope.weather   = data.weather;
 			skycons.set("weather-icon", data.weather.icon);
+			setTimeout(updateContentHeight, 25);
 		});
 	};
 	getData();

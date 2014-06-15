@@ -83,8 +83,10 @@
 
 				</div> -->
 				<div class="map">
-					<google-map center="map.center" zoom="map.zoom" bounds="map.bounds" options="{disableDefaultUI: true}">
-						
+					<google-map center="map.center" 
+								zoom="map.zoom"  
+								options="map.options"
+								control="map.control">
 						<marker ng-repeat="car in car2go" 
 								coords="car" 
 								icon="'assets/img/car2go.png'"
