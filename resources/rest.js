@@ -4,6 +4,15 @@ var Forecast = require('forecast.io');
 var xml      = require('xml2js');
 var _        = require('underscore');
 
+var getWmataApiKey = function () {
+	var keys = [
+		'd46qgb277rn9hq8q8emvqyfr',
+		'nhc5bsanvc3b565fytmb5bz2',
+		'9kcrbzzhv34vpgb4pecb6g5n'
+	];
+	return '&api_key=' + keys[Math.floor(Math.random() * keys.length)];
+}
+
 module.exports = function (app) {
 	var default_wmata_key = '&api_key=d46qgb277rn9hq8q8emvqyfr';
 	var train_wmata_key = '&api_key=nhc5bsanvc3b565fytmb5bz2';
