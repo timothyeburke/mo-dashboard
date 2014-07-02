@@ -6,10 +6,10 @@ if (process.env.PORT) {
 }
 
 // simple logger
-app.use(function(req, res, next){
-  console.log('%s %s', req.method, req.url);
-  next();
-});
+// app.use(function(req, res, next){
+//   console.log('%s %s', req.method, req.url);
+//   next();
+// });
 
 // Static files
 app.use(express.static(__dirname + '/public'));
