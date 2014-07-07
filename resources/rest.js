@@ -6,11 +6,20 @@ var _        = require('underscore');
 
 var getWmataApiKey = function () {
 	var keys = [
-		'd46qgb277rn9hq8q8emvqyfr',
-		'nhc5bsanvc3b565fytmb5bz2',
-		'9kcrbzzhv34vpgb4pecb6g5n'
+		'fkcfzjmc3fgnukkpcxp3qt3v',
+		'vckbehh2wrshadvamnwjbk9v',
+		'ws432ar39vd82q5ps2rb7hae',
+		'm9b6huznrdhrsdmqx9ac6agd',
+		'bd73dmyt4pmnbkes8hz8tfwj',
+		'634qz8w9axe3frqy6vvts9gh',
+		'qvcrsqvz4ua58y7phr626gqz',
+		'f3pg6nwnscpccmkqjnz7dja8',
+		'g3jkkuzn2ypggjjpkawpwvp4',
+		'm9wd7garmn6bgyvxmt92q3ar'
 	];
-	return '&api_key=' + keys[Math.floor(Math.random() * keys.length)];
+	
+	var key = keys[Math.floor(Math.random() * keys.length)];
+	return '&api_key=' + key;
 }
 
 module.exports = function (app) {
@@ -91,6 +100,7 @@ module.exports = function (app) {
 				});
 				response.on('error', function () {
 					// db[direction] = errorObject;
+					console.log(new Date().toString() + " : Error getting bus data.");
 				});
 			});
 			request.end();
@@ -126,14 +136,15 @@ module.exports = function (app) {
 						}
 					});
 				} catch (err) {
-					db.incidents = [];
+					// db.incidents = [];
 				}
 				if (db.incidents == undefined) {
 					db.incidents = [];
 				}
 			});
 			response.on('error', function () {
-				db.incidents = []
+				// db.incidents = [];
+				console.log(new Date().toString() + " : Error getting incident data.");
 			});
 		});
 		request.end();
@@ -152,7 +163,7 @@ module.exports = function (app) {
 
 		forecast.get(lat, lon, function (err, res, data) {
 			if (err) {
-				console.log(err);
+				console.log(new Date().toString() + " : " + err);
 				db.weather = {};
 			}
 			db.weather = data.currently;
@@ -183,11 +194,12 @@ module.exports = function (app) {
 							}
 						});
 					} catch (err) {
-						db[station].Predictions = [];
+						// db[station].Predictions = [];
 					}
 				});
 				response.on('error', function () {
-					db[station].Predictions = [];
+					console.log(new Date().toString() + " : Error getting train data.");
+					// db[station].Predictions = [];
 				});
 			});
 			request.end();
@@ -237,6 +249,9 @@ module.exports = function (app) {
 					processBikeshareXML(temp);
 				}
 			});
+			response.on('error', function (err) {
+				console.log(new Date().toString() + " : Error getting Bikeshare data.");
+			});
 		});
 	};
 	getBikeshareData();
@@ -270,7 +285,7 @@ module.exports = function (app) {
 				}
 			});
 			response.on('error', function () {
-				console.log("Error getting car2go data.");
+				console.log(new Date().toString() + " : Error getting car2go data.");
 				db.car2go.length = 0;
 			});
 		});

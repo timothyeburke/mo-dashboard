@@ -1,6 +1,6 @@
 setTimeout(function () {
 	window.location.reload(true);
-}, 1000 * 60 * 60);
+}, 1000 * 60 * 60 * 12);
 
 // Angular Stuff below here:
 
