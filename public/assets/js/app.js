@@ -70,4 +70,18 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 	};
 	getData();
 	setInterval(getData, 5000);
+
+	$http.get('red.json').success(function (data) {
+		var red = {};
+		red.points = [];
+		data.geometry.coordinates.forEach(function (pair) {
+			lat = pair[1];
+			lon = pair[0];
+			red.points.push({
+				latitude: lat,
+				longitude: lon
+			});
+		});
+		$scope.red = red;
+	});
 });
