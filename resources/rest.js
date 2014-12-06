@@ -22,7 +22,7 @@ var getWmataApiKey = function () {
 	];
 	
 	var key = keys[Math.floor(Math.random() * keys.length)];
-	return '&api_key=' + key;
+	return '&api_key=' + key + '&subscription-key=' + key;
 }
 
 module.exports = function (app) {
