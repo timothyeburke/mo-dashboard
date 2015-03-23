@@ -84,21 +84,24 @@ module.exports = function (app) {
 				path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + getWmataApiKey(),
 				method: 'GET'
 			};
-			var temp = '';
+			var data = '';
 			var request = http.get(options, function(response) {
-				response.on('data', function (data) {
+				response.on('data', function (d) {
+					data += d;
+				});
+
+				response.on('end', function () {
 					try {
-						temp += data;
-						db[direction] = JSON.parse(temp);
+						db[direction] = JSON.parse(data);
 					} catch (err) {
-						// db[direction] = errorObject;
+						db[direction] = errorObject;
 					}
 					if (db[direction] == undefined) {
 						db[direction] = errorObject;
 					}
 				});
+
 				response.on('error', function () {
-					// db[direction] = errorObject;
 					console.log(new Date().toString() + " : Error getting bus data.");
 				});
 			});
@@ -121,9 +124,12 @@ module.exports = function (app) {
 		};
 		var temp = '';
 		var request = http.get(options, function(response) {
-			response.on('data', function (data) {
+			response.on('data', function (d) {
+				temp += d;
+			});
+
+			response.on('end', function () {
 				try {
-					temp += data;
 					db.incidents = JSON.parse(temp).Incidents;
 					db.incidents.forEach(function (incident) {
 						incident.affected = _.compact(incident.LinesAffected.split(';'));
@@ -141,6 +147,7 @@ module.exports = function (app) {
 					db.incidents = [];
 				}
 			});
+
 			response.on('error', function () {
 				// db.incidents = [];
 				console.log(new Date().toString() + " : Error getting incident data.");
@@ -181,9 +188,12 @@ module.exports = function (app) {
 			};
 			var temp = '';
 			var request = http.get(options, function(response) {
-				response.on('data', function (data) {
+				response.on('data', function (d) {
+					temp += d;
+				});
+
+				response.on('end', function () {
 					try {
-						temp += data;
 						db[station].Predictions = JSON.parse(temp).Trains;
 						db[station].Predictions.forEach(function (train) {
 							if (train.Line != "RD" && train.Line != "GR" && 
@@ -196,6 +206,7 @@ module.exports = function (app) {
 						// db[station].Predictions = [];
 					}
 				});
+
 				response.on('error', function () {
 					console.log(new Date().toString() + " : Error getting train data.");
 					// db[station].Predictions = [];
@@ -242,12 +253,14 @@ module.exports = function (app) {
 		};
 		var temp = '';
 		var request = http.get(options, function (response) {
-			response.on('data', function (data) {
-				temp += data;
-				if (temp.indexOf("</stations>") != -1) {
-					processBikeshareXML(temp);
-				}
+			response.on('data', function (d) {
+				temp += d;
 			});
+
+			response.on('end', function () {
+				processBikeshareXML(temp);
+			});
+
 			response.on('error', function (err) {
 				console.log(new Date().toString() + " : Error getting Bikeshare data.");
 			});
@@ -265,9 +278,12 @@ module.exports = function (app) {
 		};
 		var temp = '';
 		var request = https.get(options, function(response) {
-			response.on('data', function (data) {
+			response.on('data', function (d) {
+				temp += d;
+			});
+
+			response.on('end', function () {
 				try {
-					temp += data;
 					var car2go = JSON.parse(temp);
 					db.car2go.length = 0;
 					car2go.placemarks.forEach(function (car) {
@@ -283,6 +299,7 @@ module.exports = function (app) {
 				} catch (err) {
 				}
 			});
+
 			response.on('error', function () {
 				console.log(new Date().toString() + " : Error getting car2go data.");
 				db.car2go.length = 0;
