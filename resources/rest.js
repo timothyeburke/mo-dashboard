@@ -55,6 +55,7 @@ module.exports = function (app) {
 			Predictions: [],
 			StationName: "Shaw / Howard U"
 		},
+		liveBusses: [],
 		bikeshare: [],
 		car2go: [],
 		incidents: [],
@@ -71,6 +72,48 @@ module.exports = function (app) {
 	var isInBbox = function(lon, lat, westLon, eastLon, southLat, northLat) { 
 		return westLon <= lon && lon <= eastLon && southLat <= lat && lat <= northLat; 
 	}
+
+	var getBusPositions = function () {
+		var fetchPositions = function (route) {
+			var options = {
+				hostname: 'api.wmata.com',
+				port: 443,
+				path: '/Bus.svc/json/jBusPositions?RouteID=' + route + getWmataApiKey(),
+				method: 'GET'
+			};
+
+			var data = '';
+			var request = https.get(options, function (response) {
+				response.on('data', function (d) {
+					data += d;
+				});
+
+				response.on('end', function () {
+					try {
+						var busses = JSON.parse(data);
+
+						db.liveBusses.length = 0;
+						busses.BusPositions.forEach(function (bus) {
+							if (isInBbox(bus.Lon, bus.Lat, bbox.westLon, bbox.eastLon, bbox.southLat, bbox.northLat)) {
+								bus.latitude = bus.Lat;
+								bus.longitude = bus.Lon;
+								delete bus.Lat;
+								delete bus.Lon;
+								db.liveBusses.push(bus);
+							}
+						});
+					} catch (err) {
+						console.log("Error parsing json.");
+					}
+				});
+			});
+		};
+
+		fetchPositions('P6');
+	};
+
+	getBusPositions();
+	setInterval(getBusPositions, 1000 * 5); 
 
 	var getBusPredictions = function () {
 		var errorObject = {
@@ -317,6 +360,7 @@ module.exports = function (app) {
 			busses:    [db.south, db.toUSt, db.G8West],
 			car2go:    db.car2go,
 			incidents: db.incidents,
+			liveBusses: db.liveBusses,
 			trains:    [db.B35, db.B04, db.E02],
 			weather:   db.weather
 		};

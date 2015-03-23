@@ -3,9 +3,9 @@ var app     = express();
 
 console.log(new Date().toString() + " : Application Startup");
 
-if (process.env.PORT) {
+// if (process.env.PORT) {
 	var rest = require('./resources/rest')(app);	
-}
+// }
 
 // simple logger
 // app.use(function(req, res, next){

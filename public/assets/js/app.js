@@ -64,6 +64,7 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 			$scope.incidents = data.incidents;
 			$scope.trains    = data.trains;
 			$scope.weather   = data.weather;
+			$scope.liveBusses = data.liveBusses;
 			skycons.set("weather-icon", data.weather.icon);
 			setTimeout(updateContentHeight, 25);
 		});

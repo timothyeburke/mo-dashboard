@@ -109,7 +109,15 @@
 						</marker>
 						<marker coords="map.MO"
 								icon="'assets/img/MO.icon.png'"
+								icon=""
 								fit="true">
+						</marker>
+						<marker ng-repeat="bus in liveBusses"
+								coords="bus"
+								fit="true">
+							<marker-label
+								content="bus.RouteID">
+							</marker-label>
 						</marker>
 						<polyline ng-if="red"
 							path="red.points"
