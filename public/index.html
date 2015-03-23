@@ -116,7 +116,9 @@
 								coords="bus"
 								fit="true">
 							<marker-label
-								content="bus.RouteID">
+								content="bus.RouteID + '<br />' + bus.DirectionText"
+								anchor="23 0"
+								class="bike-label">
 							</marker-label>
 						</marker>
 						<polyline ng-if="red"
