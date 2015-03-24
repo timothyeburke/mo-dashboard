@@ -92,15 +92,18 @@ module.exports = function (app) {
 					try {
 						var busses = JSON.parse(data);
 
-						db.liveBusses.length = 0;
 						busses.BusPositions.forEach(function (bus) {
-							if (isInBbox(bus.Lon, bus.Lat, bbox.westLon, bbox.eastLon, bbox.southLat, bbox.northLat)) {
-								bus.latitude = bus.Lat;
-								bus.longitude = bus.Lon;
-								delete bus.Lat;
-								delete bus.Lon;
-								db.liveBusses.push(bus);
+							var savedBus = _.findWhere(db.liveBusses, {TripID:bus.TripID});
+							if (!savedBus) {
+								savedBus = bus;
+								db.liveBusses.push(savedBus);
 							}
+							savedBus.latitude = bus.Lat;
+							savedBus.longitude = bus.Lon;
+						});
+
+						db.liveBusses = _.filter(db.liveBusses, function (bus) {
+							return isInBbox(bus.Lon, bus.Lat, bbox.westLon, bbox.eastLon, bbox.southLat, bbox.northLat);
 						});
 					} catch (err) {
 						console.log("Error parsing json.");
