@@ -4,7 +4,7 @@ setTimeout(function () {
 
 // Angular Stuff below here:
 
-var dashboardApp = angular.module('dashboardApp', ['google-maps']);
+var dashboardApp = angular.module('dashboardApp', ['uiGmapgoogle-maps']);
 
 dashboardApp.controller('DashboardController', function($scope, $http) {
 	var skycons = new Skycons({"color": "white"});

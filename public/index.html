@@ -5,7 +5,7 @@
 		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="assets/css/style.css" />
 		<script src="assets/js/lib/angular.min.js"></script>
-		<script src="//maps.googleapis.com/maps/api/js"></script>
+		<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js"></script>
 		<script src="assets/js/lib/angular-google-maps.min.js"></script>
 		<script src="assets/js/lib/skycons.js"></script>
@@ -83,51 +83,46 @@
 
 				</div> -->
 				<div class="map">
-					<google-map center="map.center" 
+					<ui-gmap-google-map center="map.center" 
 								zoom="map.zoom"  
 								options="map.options"
 								control="map.control">
-						<marker ng-repeat="car in car2go" 
+						<ui-gmap-marker ng-repeat="car in car2go" 
+								idKey="car.vin"
 								coords="car" 
-								icon="'assets/img/car2go.png'"
-								fit="true">
-						</marker>
-						<marker ng-repeat="station in bikeshare"
+								icon="'assets/img/car2go.png'">
+						</ui-gmap-marker>
+						<ui-gmap-marker ng-repeat="station in bikeshare"
+								idKey="station.id"
 								coords="station"
 								icon="'assets/img/bikeshare.png'"
-								fit="true">
-							<marker-label ng-if="station.nbBikes < 10"
-								content="station.nbBikes + ' bikes'"
-								anchor="26 47"
-								class="bike-label">
-							</marker-label>
-							<marker-label ng-if="station.nbBikes >= 10"
-								content="station.nbBikes + ' bikes'"
-								anchor="30 47"
-								class="bike-label">
-							</marker-label>
-						</marker>
-						<marker coords="map.MO"
-								icon="'assets/img/MO.icon.png'"
-								icon=""
-								fit="true">
-						</marker>
-						<marker ng-repeat="bus in liveBusses"
+								options="{
+									labelContent: station.nbBikes + ' bikes',
+									labelClass: 'bike-label',
+									labelAnchor: station.nbBikes < 10 ? '26 47' : '30 47'
+								}">
+						</ui-gmap-marker>
+						<ui-gmap-marker coords="map.MO"
+								idKey="12345"
+								icon="'assets/img/MO.icon.png'">
+						</ui-gmap-marker>
+						<ui-gmap-marker ng-repeat="bus in liveBusses"
+								icon="'assets/img/metro/bus-small.png'"
+								idKey="bus.TripID"
 								coords="bus"
-								fit="true">
-							<marker-label
-								content="bus.RouteID + '<br />' + bus.DirectionText"
-								anchor="23 0"
-								class="bike-label">
-							</marker-label>
-						</marker>
-						<polyline ng-if="red"
+								options="{
+									labelContent: bus.RouteID + '<br />' + bus.DirectionText,
+									labelClass: 'bike-label',
+									labelAnchor: '23 0'
+								}">
+						</ui-gmap-marker>
+						<ui-gmap-polyline ng-if="red"
 							path="red.points"
 							stroke="{color: '#c40033', weight: 5, opacity: 1.0}"
 							visible="true"
 							static="true">
-						</polyline>
-					</google-map>
+						</ui-gmap-polyline>
+					</ui-gmap-google-map>
 				</div>
 			</div>
 		</div>
