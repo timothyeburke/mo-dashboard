@@ -125,7 +125,7 @@ module.exports = function (app) {
 	};
 
 	getBusPositions();
-	setInterval(getBusPositions, 1000 * 10); 
+	setInterval(getBusPositions, 1000 * 5); 
 
 	var getBusPredictions = function () {
 		var errorObject = {
