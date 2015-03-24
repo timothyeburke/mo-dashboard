@@ -106,14 +106,23 @@ module.exports = function (app) {
 						console.log("Error parsing json.");
 					}
 				});
+
+				response.on('error', function () {
+					console.log(new Date().toString() + " : Error getting live bus data.");
+				});
 			});
 		};
 
 		fetchPositions('P6');
+		fetchPositions('90');
+		fetchPositions('92');
+		fetchPositions('X2');
+		fetchPositions('G8');
+		fetchPositions('80');
 	};
 
 	getBusPositions();
-	setInterval(getBusPositions, 1000 * 5); 
+	setInterval(getBusPositions, 1000 * 10); 
 
 	var getBusPredictions = function () {
 		var errorObject = {
