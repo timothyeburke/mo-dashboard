@@ -92,14 +92,11 @@ module.exports = function (app) {
 					try {
 						var busses = JSON.parse(data);
 
+						db.liveBusses.length = 0;
 						busses.BusPositions.forEach(function (bus) {
-							var savedBus = _.findWhere(db.liveBusses, {TripID:bus.TripID});
-							if (!savedBus) {
-								savedBus = bus;
-								db.liveBusses.push(savedBus);
-							}
-							savedBus.latitude = bus.Lat;
-							savedBus.longitude = bus.Lon;
+							bus.latitude = bus.Lat;
+							bus.longitude = bus.Lon;
+							db.liveBusses.push(bus);
 						});
 
 						db.liveBusses = _.filter(db.liveBusses, function (bus) {
