@@ -135,12 +135,12 @@ module.exports = function (app) {
 		var fetchPredictions = function (stop, direction) {
 			var options = {
 				hostname: 'api.wmata.com',
-				port: 80,
+				port: 443,
 				path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + getWmataApiKey(),
 				method: 'GET'
 			};
 			var data = '';
-			var request = http.get(options, function(response) {
+			var request = https.get(options, function(response) {
 				response.on('data', function (d) {
 					data += d;
 				});
@@ -173,12 +173,12 @@ module.exports = function (app) {
 	var getIncidents = function () {
 		var options = {
 			hostname: 'api.wmata.com',
-			port: 80,
+			port: 443,
 			path: '/Incidents.svc/json/Incidents?' + getWmataApiKey(),
 			method: 'GET'
 		};
 		var temp = '';
-		var request = http.get(options, function(response) {
+		var request = https.get(options, function(response) {
 			response.on('data', function (d) {
 				temp += d;
 			});
@@ -237,12 +237,12 @@ module.exports = function (app) {
 		var fetchPredictions = function (station) {
 			var options = {
 				hostname: 'api.wmata.com',
-				port: 80,
+				port: 443,
 				path: '/StationPrediction.svc/json/GetPrediction/' + station + '?' + getWmataApiKey(),
 				method: 'GET'
 			};
 			var temp = '';
-			var request = http.get(options, function(response) {
+			var request = https.get(options, function(response) {
 				response.on('data', function (d) {
 					temp += d;
 				});
@@ -302,12 +302,12 @@ module.exports = function (app) {
 		}
 		var options = {
 			hostname: 'www.capitalbikeshare.com',
-			port: 80,
+			port: 443,
 			path: '/data/stations/bikeStations.xml',
 			method: 'GET'
 		};
 		var temp = '';
-		var request = http.get(options, function (response) {
+		var request = https.get(options, function (response) {
 			response.on('data', function (d) {
 				temp += d;
 			});
