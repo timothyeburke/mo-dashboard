@@ -74,11 +74,11 @@ module.exports = function (app) {
 	}
 
 	var getBusPositions = function () {
-		var fetchPositions = function (route) {
+		var fetchPositions = function () {
 			var options = {
 				hostname: 'api.wmata.com',
 				port: 443,
-				path: '/Bus.svc/json/jBusPositions?RouteID=' + route + getWmataApiKey(),
+				path: '/Bus.svc/json/jBusPositions?RouteID&Lat=38.9155&Lon=-77.0050&Radius=1600' + getWmataApiKey(),
 				method: 'GET'
 			};
 
@@ -116,16 +116,11 @@ module.exports = function (app) {
 			});
 		};
 
-		fetchPositions('P6');
-		fetchPositions('90');
-		fetchPositions('92');
-		fetchPositions('X2');
-		fetchPositions('G8');
-		fetchPositions('80');
+		fetchPositions();
 	};
 
 	getBusPositions();
-	setInterval(getBusPositions, 1000 * 5); 
+	setInterval(getBusPositions, 1000 * 3); 
 
 	var getBusPredictions = function () {
 		var errorObject = {
