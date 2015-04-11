@@ -2,10 +2,10 @@
   "name": "metropolital-overlook-shuttle",
   "version": "0.0.1",
   "dependencies": {
-    "express": "*",
-    "forecast.io": "*",
-    "underscore": "*",
-    "xml2js": "*"
+    "express": "4.12.*",
+    "forecast.io": "0.0.9",
+    "lodash": "3.6.*",
+    "xml2js": "0.4.*"
   },
   "engines": {
     "node": "0.10.x",

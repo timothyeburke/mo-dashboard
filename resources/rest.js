@@ -2,7 +2,7 @@ var http     = require('http');
 var https    = require('https');
 var Forecast = require('forecast.io');
 var xml      = require('xml2js');
-var _        = require('underscore');
+var _        = require('lodash');
 
 var getWmataApiKey = function () {
 	var keys = [
@@ -219,6 +219,12 @@ module.exports = function (app) {
 				console.log(new Date().toString() + " : " + err);
 				db.weather = {};
 			}
+			data.currently.low = _.min(data.hourly.data, function (hour) {
+				return hour.temperature;
+			});
+			data.currently.high = _.max(data.hourly.data, function (hour) {
+				return hour.temperature;
+			});
 			db.weather = data.currently;
 		});
 	};
