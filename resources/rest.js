@@ -20,37 +20,37 @@ var getWmataApiKey = function () {
 		'g3jkkuzn2ypggjjpkawpwvp4', // TransitDashKey8
 		'm9wd7garmn6bgyvxmt92q3ar'  // TransitDashKey9
 	];
-	
+
 	var key = keys[Math.floor(Math.random() * keys.length)];
 	return '&api_key=' + key + '&subscription-key=' + key;
 }
 
 module.exports = function (app) {
 	var db = {
-		south: { 
-			Predictions: [], 
+		south: {
+			Predictions: [],
 			StopName: ""
 		},
-		north: { 
-			Predictions: [], 
+		north: {
+			Predictions: [],
 			StopName: ""
 		},
-		toUSt: { 
-			Predictions: [], 
+		toUSt: {
+			Predictions: [],
 			StopName: ""
 		},
 		G8West: {
-			Predictions: [], 
+			Predictions: [],
 			StopName: ""
 		},
 		B35: { // New York Ave Metro
 			Predictions: [],
 			StationName: "New York Ave"
-		}, 
+		},
 		B04: { // Rhode Island Ave Metro
 			Predictions: [],
 			StationName: "Rhode Island Ave"
-		}, 
+		},
 		E02: { // Shaw Metro
 			Predictions: [],
 			StationName: "Shaw / Howard U"
@@ -69,8 +69,8 @@ module.exports = function (app) {
 		northLat:  38.920694
 	};
 
-	var isInBbox = function(lon, lat, westLon, eastLon, southLat, northLat) { 
-		return westLon <= lon && lon <= eastLon && southLat <= lat && lat <= northLat; 
+	var isInBbox = function(lon, lat, westLon, eastLon, southLat, northLat) {
+		return westLon <= lon && lon <= eastLon && southLat <= lat && lat <= northLat;
 	}
 
 	var getBusPositions = function () {
@@ -117,7 +117,7 @@ module.exports = function (app) {
 	};
 
 	getBusPositions();
-	setInterval(getBusPositions, 1000 * 3); 
+	setInterval(getBusPositions, 1000 * 3);
 
 	var getBusPredictions = function () {
 		var errorObject = {
@@ -154,13 +154,13 @@ module.exports = function (app) {
 			});
 			request.end();
 		};
-		fetchPredictions(1001624, "south"); 
+		fetchPredictions(1001624, "south");
 		// fetchPredictions(1001620, "north"); // P6 North - not really needed
 		fetchPredictions(1001425, "toUSt");
 		fetchPredictions(1001715, "G8West")
 	};
 	getBusPredictions();
-	setInterval(getBusPredictions, 1000 * 25); 
+	setInterval(getBusPredictions, 1000 * 25);
 
 	var getIncidents = function () {
 		var options = {
@@ -180,9 +180,8 @@ module.exports = function (app) {
 					db.incidents = JSON.parse(temp).Incidents;
 					db.incidents.forEach(function (incident) {
 						incident.affected = _.compact(incident.LinesAffected.split(';'));
-						if (incident.Description.indexOf(":") != -1) {
-							incident.Description = incident.Description.split(":")[1];
-						}
+						incident.Description = _.trim(incident.Description.replace(/(Blue|Orange|Red|Silver|Green|Yellow) Line\:/ig, ''));
+						console.log(incident.Description);
 						if (incident.Description.indexOf(".") != -1) {
 							incident.Description = incident.Description.split(".")[0] + ".";
 						}
@@ -249,8 +248,8 @@ module.exports = function (app) {
 					try {
 						db[station].Predictions = JSON.parse(temp).Trains;
 						db[station].Predictions.forEach(function (train) {
-							if (train.Line != "RD" && train.Line != "GR" && 
-								train.Line != "YL" && train.Line != "SV" && 
+							if (train.Line != "RD" && train.Line != "GR" &&
+								train.Line != "YL" && train.Line != "SV" &&
 								train.Line != "SV" && train.Line != "OR") {
 								train.Line = "";
 							}
@@ -267,7 +266,7 @@ module.exports = function (app) {
 			});
 			request.end();
 		};
-		fetchPredictions("B35"); 
+		fetchPredictions("B35");
 		fetchPredictions("B04");
 		fetchPredictions("E02");
 	};
@@ -376,6 +375,6 @@ module.exports = function (app) {
 		};
 
 		res.contentType('application/json');
-		res.send(data); 
+		res.send(data);
 	});
 }
