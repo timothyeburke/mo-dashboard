@@ -157,7 +157,8 @@ module.exports = function (app) {
 		fetchPredictions(1001624, "south");
 		// fetchPredictions(1001620, "north"); // P6 North - not really needed
 		fetchPredictions(1001425, "toUSt");
-		fetchPredictions(1001715, "G8West")
+		fetchPredictions(1001715, "G8West");
+		fetchPredictions(1003467, "G8East");
 	};
 	getBusPredictions();
 	setInterval(getBusPredictions, 1000 * 25);
@@ -376,5 +377,14 @@ module.exports = function (app) {
 
 		res.contentType('application/json');
 		res.send(data);
+	});
+
+	app.get('/work.json', function (req, res) {
+		var data = {
+			busses: [db.G8East]
+		}
+
+		res.contentType('application/json');
+		res.send(JSON.stringify(data, null, 4));
 	});
 }
