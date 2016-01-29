@@ -384,6 +384,8 @@ module.exports = function (app) {
 			busses: [db.G8East]
 		}
 
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "X-Requested-With");
 		res.contentType('application/json');
 		res.send(JSON.stringify(data, null, 4));
 	});
