@@ -4,15 +4,16 @@
 		<title>Metropolitan Overlook Dashboard</title>
 		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="assets/css/style.css" />
+		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.1.0/lodash.js"></script>
 		<script src="assets/js/lib/angular.min.js"></script>
-		<script src='//maps.googleapis.com/maps/api/js?sensor=false'></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.underscore.min.js"></script>
+		<script src="assets/js/lib/angular-simple-logger.min.js"></script>
+		<script src='//maps.googleapis.com/maps/api/js'></script>
 		<script src="assets/js/lib/angular-google-maps.min.js"></script>
 		<script src="assets/js/lib/skycons.js"></script>
 	</head>
 	<body ng-controller="DashboardController">
 		<header id="main-header">
-			<img src="assets/img/header.png" />	
+			<img src="assets/img/header.png" />
 			<div id="weather">
 				<canvas id="weather-icon"></canvas>
 				<div id="temperature">
@@ -75,21 +76,21 @@
 					</span>
 					<br/>
 					<br/>
-					Welcome to Metropolitan Overlook!  This neighborhood dashboard is a work in progress.  Check back 
-					often for updates and changes.  In future, news and announcements about our building will go in 
-					this space.  If you have any questions, suggestions, or notice any bugs, feel free to reach out 
+					Welcome to Metropolitan Overlook!  This neighborhood dashboard is a work in progress.  Check back
+					often for updates and changes.  In future, news and announcements about our building will go in
+					this space.  If you have any questions, suggestions, or notice any bugs, feel free to reach out
 					to me.<br /><br /><br /><br />
 					-Tim, Unit 406
 
 				</div> -->
 				<div class="map">
-					<ui-gmap-google-map center="map.center" 
-								zoom="map.zoom"  
+					<ui-gmap-google-map center="map.center"
+								zoom="map.zoom"
 								options="map.options"
 								control="map.control">
-						<ui-gmap-marker ng-repeat="car in car2go" 
+						<ui-gmap-marker ng-repeat="car in car2go"
 								idKey="car.vin"
-								coords="car" 
+								coords="car"
 								icon="'assets/img/car2go.png'">
 						</ui-gmap-marker>
 						<ui-gmap-marker ng-repeat="station in bikeshare"

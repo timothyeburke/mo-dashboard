@@ -35,7 +35,7 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 		content.setAttribute("style","height: " + (viewportHeight - incidentsHeight - headerHeight) + "px;");
 		$scope.map.control.refresh($scope.map.center);
 	};
-	
+
 	var updateTime = function () {
 		$scope.now = new Date();
 	};

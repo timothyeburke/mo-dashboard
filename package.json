@@ -1,7 +1,10 @@
 {
-  "name": "metropolital-overlook-shuttle",
+  "name": "metropolitan-overlook-dashboard",
   "version": "0.0.1",
   "dependencies": {
+    "angular": "^1.4.9",
+    "angular-google-maps": "^2.3.1",
+    "angular-simple-logger": "^0.1.7",
     "express": "4.12.*",
     "forecast.io": "0.0.9",
     "lodash": "3.6.*",
