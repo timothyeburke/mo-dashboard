@@ -1,0 +1,30 @@
+body {
+    font-family: sans-serif;
+}
+
+th {
+    font-weight: bold;
+    color: #000;
+}
+
+tr {
+    color: #777;
+}
+
+.minutes, .route {
+    padding-right: 10px;
+    text-align: right;
+}
+
+.text {
+    text-align: left;
+}
+
+.text {
+    padding-left: 10px;
+}
+
+.bold {
+    font-weight: bold;
+    color: #000;
+}
