@@ -70,19 +70,6 @@
 				</div>
 			</div>
 			<div class="split3">
-				<!-- <div class="news">
-					<span class="title">
-					News and Announcements
-					</span>
-					<br/>
-					<br/>
-					Welcome to Metropolitan Overlook!  This neighborhood dashboard is a work in progress.  Check back
-					often for updates and changes.  In future, news and announcements about our building will go in
-					this space.  If you have any questions, suggestions, or notice any bugs, feel free to reach out
-					to me.<br /><br /><br /><br />
-					-Tim, Unit 406
-
-				</div> -->
 				<div class="map">
 					<ui-gmap-google-map center="map.center"
 								zoom="map.zoom"
@@ -91,13 +78,13 @@
 						<ui-gmap-marker ng-repeat="car in car2go"
 								idKey="car.vin"
 								coords="car"
-								icon="'assets/img/car2go.png'">
+								options="{icon: 'assets/img/car2go.png'}">
 						</ui-gmap-marker>
 						<ui-gmap-marker ng-repeat="station in bikeshare"
 								idKey="station.id"
 								coords="station"
-								icon="'assets/img/bikeshare.png'"
 								options="{
+									icon: 'assets/img/bikeshare.png',
 									labelContent: station.nbBikes + ' bikes',
 									labelClass: 'bike-label',
 									labelAnchor: station.nbBikes < 10 ? '26 47' : '30 47'
@@ -105,13 +92,13 @@
 						</ui-gmap-marker>
 						<ui-gmap-marker coords="map.MO"
 								idKey="12345"
-								icon="'assets/img/MO.icon.png'">
+								options="{icon: 'assets/img/MO.icon.png'}">
 						</ui-gmap-marker>
 						<ui-gmap-marker ng-repeat="bus in liveBusses"
-								icon="'assets/img/metro/bus-small.png'"
 								idKey="bus.TripID"
 								coords="bus"
 								options="{
+									icon: 'assets/img/metro/bus-small.png',
 									labelContent: bus.RouteID + '<br />' + bus.DirectionText,
 									labelClass: 'bike-label',
 									labelAnchor: '23 0'
