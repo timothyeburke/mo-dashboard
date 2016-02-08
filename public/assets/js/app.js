@@ -14,7 +14,7 @@ dashboardApp.config(function(uiGmapGoogleMapApiProvider) {
     });
 });
 
-dashboardApp.controller('DashboardController', function($scope, $http) {
+dashboardApp.controller('DashboardController', function($scope, $http, $timeout) {
 	var skycons = new Skycons({"color": "white"});
 	skycons.add("weather-icon", "clear-day");
 	skycons.play();
@@ -34,6 +34,10 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 			disableDefaultUI: true
 		}
 	};
+
+	$timeout(function() {
+		$scope.showIncidents = true;
+	}, 2000)
 
 	var updateContentHeight = function () {
 		var incidentsHeight = document.getElementById("incidents").clientHeight;
@@ -69,7 +73,11 @@ dashboardApp.controller('DashboardController', function($scope, $http) {
 			if (!same($scope.car2go, data.car2go, "vin")) {
 				$scope.car2go = data.car2go;
 			}
-			$scope.incidents = data.incidents;
+
+			if ($scope.showIncidents) {
+				$scope.incidents = data.incidents;
+			}
+
 			$scope.trains    = data.trains;
 			$scope.weather   = data.weather;
 			$scope.liveBusses = data.liveBusses;

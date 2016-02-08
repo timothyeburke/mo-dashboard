@@ -74,7 +74,7 @@ header {
 		line-height: $header-row-content-height;
 		overflow: visible;
 		white-space: nowrap;
-		
+
 		#weather-icon {
 			margin-left: -75px;
 			display: inline-block;
@@ -131,7 +131,7 @@ header {
 }
 
 #content {
-	height: 400px;
+	height: 800px;
 	white-space: nowrap;
 	.split1 {
 		display: inline-block;
@@ -154,7 +154,6 @@ header {
 		padding: 20px;
 		vertical-align: top;
 	}
-
 
 	.entry {
 		padding: 20px;
@@ -180,7 +179,7 @@ header {
 
 		.entry-title {
 			font-size: 2.5rem;
-			
+
 		}
 
 		table {
@@ -193,7 +192,7 @@ header {
 				height: 25px;
 			}
 
-			
+
 
 			.col1 {
 				width: 30px;
