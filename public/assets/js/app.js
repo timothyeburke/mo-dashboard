@@ -6,6 +6,14 @@ setTimeout(function () {
 
 var dashboardApp = angular.module('dashboardApp', ['uiGmapgoogle-maps']);
 
+dashboardApp.config(function(uiGmapGoogleMapApiProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyDdmiw4XfUkEXrJKUWj4IuGjd10vzdhnjc',
+        v: '3.20', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization'
+    });
+});
+
 dashboardApp.controller('DashboardController', function($scope, $http) {
 	var skycons = new Skycons({"color": "white"});
 	skycons.add("weather-icon", "clear-day");
