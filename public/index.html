@@ -3,13 +3,14 @@
 	<head>
 		<title>Metropolitan Overlook Dashboard</title>
 		<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
 		<link rel="stylesheet" href="assets/css/style.css" />
 		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/4.1.0/lodash.js"></script>
+		<script src="http://cdn.leafletjs.com/leaflet-0.7.1/leaflet.js"></script>
 		<script src="assets/js/lib/angular.min.js"></script>
 		<script src="assets/js/lib/angular-simple-logger.min.js"></script>
-		<script src='//maps.googleapis.com/maps/api/js'></script>
-		<script src="assets/js/lib/angular-google-maps.min.js"></script>
 		<script src="assets/js/lib/skycons.js"></script>
+		<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 	</head>
 	<body ng-controller="DashboardController">
 		<header id="main-header">
@@ -71,29 +72,15 @@
 			</div>
 			<div class="split3">
 				<div class="map">
-					<ui-gmap-google-map center="map.center"
+					<div id="map" style="height: 100%"></div>
+					<!-- <ui-gmap-google-map center="map.center"
 								zoom="map.zoom"
 								options="map.options"
 								control="map.control">
-						<ui-gmap-marker ng-repeat="car in car2go"
-								idKey="car.vin"
-								coords="car"
-								options="{icon: 'assets/img/car2go.png'}">
+
+
 						</ui-gmap-marker>
-						<ui-gmap-marker ng-repeat="station in bikeshare"
-								idKey="station.id"
-								coords="station"
-								options="{
-									icon: 'assets/img/bikeshare.png',
-									labelContent: station.nbBikes + ' bikes',
-									labelClass: 'bike-label',
-									labelAnchor: station.nbBikes < 10 ? '26 47' : '30 47'
-								}">
-						</ui-gmap-marker>
-						<ui-gmap-marker coords="map.MO"
-								idKey="12345"
-								options="{icon: 'assets/img/MO.icon.png'}">
-						</ui-gmap-marker>
+
 						<ui-gmap-marker ng-repeat="bus in liveBusses"
 								idKey="bus.TripID"
 								coords="bus"
@@ -110,7 +97,7 @@
 							visible="true"
 							static="true">
 						</ui-gmap-polyline>
-					</ui-gmap-google-map>
+					</ui-gmap-google-map> -->
 				</div>
 			</div>
 		</div>
