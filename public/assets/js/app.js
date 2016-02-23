@@ -60,14 +60,21 @@ dashboardApp.controller('DashboardController', function($scope, $http, $timeout)
 
 	var IconBase = L.Icon.extend({})
 	var car2goIcon = new IconBase({iconUrl: 'assets/img/car2go.png', iconAnchor: [10, 35]})
-	var bikeshareIcon = new IconBase({iconUrl: 'assets/img/bikeshare.png', iconAnchor: [10, 35]})
+	var bikeshareIcon = new IconBase({iconUrl: 'assets/img/bikeshare.png', iconAnchor: [10, 35], labelAnchor: [13, -21]})
 	var moIcon = new IconBase({iconUrl: 'assets/img/MO.icon.png', iconAnchor: [0, 0]})
-	var busIcon = new IconBase({iconUrl: 'assets/img/metro/bus-small.png', iconAnchor: [10, 35]})
+	var busIcon = new IconBase({iconUrl: 'assets/img/metro/bus-small.png', iconAnchor: [10, 35], labelAnchor: [9, -21]})
 
 	L.marker([$scope.map.MO.latitude, $scope.map.MO.longitude], {icon: moIcon}).addTo(map)
 
-	function addMarker(icon, coordinates) {
-		markers.push(L.marker(coordinates, {icon: icon}).addTo(map))
+	function addMarker(icon, coordinates, label) {
+		var marker = L.marker(coordinates, {icon: icon})
+		if (label) {
+			marker.bindLabel(label, {
+				noHide: true
+			})
+		}
+
+		markers.push(marker.addTo(map))
 	}
 
 	function removeMarkers() {
@@ -86,11 +93,11 @@ dashboardApp.controller('DashboardController', function($scope, $http, $timeout)
 
 			data.bikeshare.forEach(function(station) {
 				// TODO: Figure out text markers to show bikes available
-				addMarker(bikeshareIcon, [station.latitude, station.longitude])
+				addMarker(bikeshareIcon, [station.latitude, station.longitude], station.nbBikes + ' bikes')
 			})
 
 			data.liveBusses.forEach(function(bus) {
-				addMarker(busIcon, [bus.latitude, bus.longitude])
+				addMarker(busIcon, [bus.latitude, bus.longitude], bus.RouteID + ' ' + bus.DirectionText)
 			})
 
 			$scope.incidents = data.incidents
