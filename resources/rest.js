@@ -117,7 +117,7 @@ module.exports = function (app) {
 	};
 
 	getBusPositions();
-	setInterval(getBusPositions, 1000 * 3);
+	setInterval(getBusPositions, 1000 * 10);
 
 	var getBusPredictions = function () {
 		var errorObject = {
@@ -203,7 +203,7 @@ module.exports = function (app) {
 		request.end();
 	};
 	getIncidents();
-	setInterval(getIncidents, 1000 * 60 * 5);
+	setInterval(getIncidents, 1000 * 60);
 
 	var getWeather = function () {
 		var lon = -77.0033354;
@@ -272,7 +272,7 @@ module.exports = function (app) {
 		fetchPredictions("E02");
 	};
 	getTrainPredictions();
-	setInterval(getTrainPredictions, 1000 * 30);
+	setInterval(getTrainPredictions, 1000 * 60);
 
 	var getBikeshareData = function () {
 		var processBikeshareXML = function (data) {
