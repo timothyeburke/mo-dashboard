@@ -179,21 +179,6 @@ module.exports = function (app) {
 			response.on('end', function () {
 				try {
 					db.incidents = JSON.parse(temp).Incidents;
-					db.incidents.push({
-      "DateUpdated": "/Date(1402622477000+0000)/",
-      "DelaySeverity": null,
-      "Description": "Hi #metrohacknight, follow me @cs_tim",
-      "EmergencyText": null,
-      "EndLocationFullName": null,
-      "IncidentID": "CDA425B4-8421-4A12-A020-CE442AEEBF32",
-      "IncidentType": "Delay",
-      "LinesAffected": "OR;",
-      "PassengerDelay": 0,
-      "StartLocationFullName": null,
-      "affected": [
-        "OR", "BL", "SV", "GR", "YL", "RD"
-      ]
-    })
 					db.incidents.forEach(function (incident) {
 						incident.affected = _.compact(incident.LinesAffected.split(';'));
 						incident.Description = _.trim(incident.Description.replace(/(Blue|Orange|Red|Silver|Green|Yellow) Line\:/ig, ''));
@@ -206,21 +191,7 @@ module.exports = function (app) {
 					// db.incidents = [];
 				}
 				if (db.incidents == undefined) {
-					db.incidents = [{
-      "DateUpdated": "/Date(1402622477000+0000)/",
-      "DelaySeverity": null,
-      "Description": "Hi #metrohacknight, follow me @cs_tim",
-      "EmergencyText": null,
-      "EndLocationFullName": null,
-      "IncidentID": "CDA425B4-8421-4A12-A020-CE442AEEBF32",
-      "IncidentType": "Delay",
-      "LinesAffected": "OR;",
-      "PassengerDelay": 0,
-      "StartLocationFullName": null,
-      "affected": [
-        "OR", "BL", "SV", "GR", "YL", "RD"
-      ]
-    }]
+					db.incidents = [];
 				}
 			});
 
