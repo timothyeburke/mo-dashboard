@@ -4,9 +4,9 @@
   "dependencies": {
     "angular": "^1.4.9",
     "angular-simple-logger": "^0.1.7",
-    "express": "4.12.*",
+    "express": "^4.13.4",
     "forecast.io": "0.0.9",
-    "lodash": "3.6.*",
-    "xml2js": "0.4.*"
+    "lodash": "^4.10.0",
+    "xml2js": "^0.4.16"
   }
 }
