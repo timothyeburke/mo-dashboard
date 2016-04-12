@@ -6,7 +6,7 @@ var _        = require('lodash')
 
 var keys = JSON.parse(process.env.WMATA_API_KEYS)
 
-var getWmataApiKey = function() {
+function getWmataApiKey() {
     var key = keys[Math.floor(Math.random() * keys.length)]
     return '&api_key=' + key + '&subscription-key=' + key
 }
@@ -55,12 +55,12 @@ module.exports = function(app) {
         northLat:  38.920694
     }
 
-    var isInBbox = function(lon, lat, westLon, eastLon, southLat, northLat) {
+    function isInBbox(lon, lat, westLon, eastLon, southLat, northLat) {
         return westLon <= lon && lon <= eastLon && southLat <= lat && lat <= northLat
     }
 
-    var getBusPositions = function() {
-        var fetchPositions = function() {
+    function getBusPositions() {
+        function fetchPositions() {
             var options = {
                 hostname: 'api.wmata.com',
                 port: 443,
@@ -69,23 +69,23 @@ module.exports = function(app) {
             }
 
             var data = ''
-            var request = https.get(options, function(response) {
-                response.on('data', function(d) {
+            var request = https.get(options, (response) => {
+                response.on('data', (d) => {
                     data += d
                 })
 
-                response.on('end', function() {
+                response.on('end', () => {
                     try {
                         var busses = JSON.parse(data)
 
                         db.liveBusses.length = 0
-                        busses.BusPositions.forEach(function(bus) {
+                        busses.BusPositions.forEach((bus) => {
                             bus.latitude = bus.Lat
                             bus.longitude = bus.Lon
                             db.liveBusses.push(bus)
                         })
 
-                        db.liveBusses = _.filter(db.liveBusses, function(bus) {
+                        db.liveBusses = _.filter(db.liveBusses, (bus) => {
                             return isInBbox(bus.Lon, bus.Lat, bbox.westLon, bbox.eastLon, bbox.southLat, bbox.northLat)
                         })
                     } catch (err) {
@@ -93,7 +93,7 @@ module.exports = function(app) {
                     }
                 })
 
-                response.on('error', function() {
+                response.on('error', () => {
                     console.log(new Date().toString() + ' : Error getting live bus data.')
                 })
             })
@@ -105,36 +105,38 @@ module.exports = function(app) {
     getBusPositions()
     setInterval(getBusPositions, 1000 * 10)
 
-    var getBusPredictions = function() {
+    function getBusPredictions() {
         var errorObject = {
             Predictions: [],
             StopName: 'Error fetching bus data.'
         }
-        var fetchPredictions = function(stop, direction) {
+
+        function fetchPredictions(stop, direction) {
             var options = {
                 hostname: 'api.wmata.com',
                 port: 443,
                 path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + getWmataApiKey(),
                 method: 'GET'
             }
+
             var data = ''
-            var request = https.get(options, function(response) {
-                response.on('data', function(d) {
+            var request = https.get(options, (response) => {
+                response.on('data', (d) => {
                     data += d
                 })
 
-                response.on('end', function() {
+                response.on('end', () => {
                     try {
                         db[direction] = JSON.parse(data)
                     } catch (err) {
                         db[direction] = errorObject
                     }
-                    if (db[direction] == undefined) {
+                    if (db[direction] === undefined) {
                         db[direction] = errorObject
                     }
                 })
 
-                response.on('error', function() {
+                response.on('error', () => {
                     console.log(new Date().toString() + ' : Error getting bus data.')
                 })
             })
@@ -149,26 +151,26 @@ module.exports = function(app) {
     getBusPredictions()
     setInterval(getBusPredictions, 1000 * 25)
 
-    var getIncidents = function() {
+    function getIncidents() {
         var options = {
             hostname: 'api.wmata.com',
             port: 443,
             path: '/Incidents.svc/json/Incidents?' + getWmataApiKey(),
             method: 'GET'
         }
+
         var temp = ''
-        var request = https.get(options, function(response) {
-            response.on('data', function(d) {
+        var request = https.get(options, (response) => {
+            response.on('data', (d) => {
                 temp += d
             })
 
-            response.on('end', function() {
+            response.on('end', () => {
                 try {
                     db.incidents = JSON.parse(temp).Incidents
-                    db.incidents.forEach(function(incident) {
+                    db.incidents.forEach((incident) => {
                         incident.affected = _.compact(incident.LinesAffected.split(''))
                         incident.Description = _.trim(incident.Description.replace(/(Blue|Orange|Red|Silver|Green|Yellow) Line\:/ig, ''))
-                        console.log(incident.Description)
                         if (incident.Description.indexOf('.') != -1) {
                             incident.Description = incident.Description.split('.')[0] + '.'
                         }
@@ -176,12 +178,12 @@ module.exports = function(app) {
                 } catch (err) {
                     // db.incidents = []
                 }
-                if (db.incidents == undefined) {
+                if (db.incidents === undefined) {
                     db.incidents = []
                 }
             })
 
-            response.on('error', function() {
+            response.on('error', () => {
                 // db.incidents = []
                 console.log(new Date().toString() + ' : Error getting incident data.')
             })
@@ -191,7 +193,7 @@ module.exports = function(app) {
     getIncidents()
     setInterval(getIncidents, 1000 * 60)
 
-    var getWeather = function() {
+    function getWeather() {
         var lon = -77.0033354
         var lat =  38.9152131
         var forecast_key = '2cb1727e2157365c87d67c621ec1bf43'
@@ -200,15 +202,15 @@ module.exports = function(app) {
             APIKey: forecast_key
         })
 
-        forecast.get(lat, lon, function(err, res, data) {
+        forecast.get(lat, lon, (err, res, data) => {
             if (err) {
                 console.log(new Date().toString() + ' : ' + err)
                 db.weather = {}
             }
-            data.currently.low = _.min(data.hourly.data, function(hour) {
+            data.currently.low = _.min(data.hourly.data, (hour) => {
                 return hour.temperature
             })
-            data.currently.high = _.max(data.hourly.data, function(hour) {
+            data.currently.high = _.max(data.hourly.data, (hour) => {
                 return hour.temperature
             })
             db.weather = data.currently
@@ -217,24 +219,25 @@ module.exports = function(app) {
     getWeather()
     setInterval(getWeather, 1000 * 60 * 10)
 
-    var getTrainPredictions = function() {
-        var fetchPredictions = function(station) {
+    function getTrainPredictions() {
+        function fetchPredictions(station) {
             var options = {
                 hostname: 'api.wmata.com',
                 port: 443,
                 path: '/StationPrediction.svc/json/GetPrediction/' + station + '?' + getWmataApiKey(),
                 method: 'GET'
             }
+
             var temp = ''
-            var request = https.get(options, function(response) {
-                response.on('data', function(d) {
+            var request = https.get(options, (response) => {
+                response.on('data', (d) => {
                     temp += d
                 })
 
-                response.on('end', function() {
+                response.on('end', () => {
                     try {
                         db[station].Predictions = JSON.parse(temp).Trains
-                        db[station].Predictions.forEach(function(train) {
+                        db[station].Predictions.forEach((train) => {
                             if (train.Line != 'RD' && train.Line != 'GR' &&
                                 train.Line != 'YL' && train.Line != 'SV' &&
                                 train.Line != 'SV' && train.Line != 'OR') {
@@ -246,7 +249,7 @@ module.exports = function(app) {
                     }
                 })
 
-                response.on('error', function() {
+                response.on('error', () => {
                     console.log(new Date().toString() + ' : Error getting train data.')
                     // db[station].Predictions = []
                 })
@@ -260,15 +263,16 @@ module.exports = function(app) {
     getTrainPredictions()
     setInterval(getTrainPredictions, 1000 * 60)
 
-    var getBikeshareData = function() {
-        var processBikeshareXML = function(data) {
+    function getBikeshareData() {
+        function processBikeshareXML(data) {
             db.bikeshare.length = 0
-            xml.parseString(data, function(err, result) {
+            xml.parseString(data, (err, result) => {
                 var stations = result.stations.station
-                stations.forEach(function(station) {
+                stations.forEach((station) => {
                     var id = station.id[0]
                     var lon = station.long[0]
                     var lat = station.lat[0]
+
                     if (isInBbox(lon, lat, bbox.westLon, bbox.eastLon, bbox.southLat, bbox.northLat)) {
                         db.bikeshare.push({
                             id: station.id[0],
@@ -284,23 +288,25 @@ module.exports = function(app) {
                 })
             })
         }
+
         var options = {
             hostname: 'www.capitalbikeshare.com',
             port: 443,
             path: '/data/stations/bikeStations.xml',
             method: 'GET'
         }
+
         var temp = ''
-        var request = https.get(options, function(response) {
-            response.on('data', function(d) {
+        var request = https.get(options, (response) => {
+            response.on('data', (d) => {
                 temp += d
             })
 
-            response.on('end', function() {
+            response.on('end', () => {
                 processBikeshareXML(temp)
             })
 
-            response.on('error', function(err) {
+            response.on('error', (err) => {
                 console.log(new Date().toString() + ' : Error getting Bikeshare data.')
             })
         })
@@ -308,24 +314,25 @@ module.exports = function(app) {
     getBikeshareData()
     setInterval(getBikeshareData, 1000 * 60)
 
-    var getCar2GoData = function() {
+    function getCar2GoData() {
         var options = {
             hostname: 'www.car2go.com',
             port: 443,
             path: '/api/v2.0/vehicles?loc=Washington%20DC&format=json',
             method: 'GET'
         }
+
         var temp = ''
-        var request = https.get(options, function(response) {
-            response.on('data', function(d) {
+        var request = https.get(options, (response) => {
+            response.on('data', (d) => {
                 temp += d
             })
 
-            response.on('end', function() {
+            response.on('end', () => {
                 try {
                     var car2go = JSON.parse(temp)
                     db.car2go.length = 0
-                    car2go.placemarks.forEach(function(car) {
+                    car2go.placemarks.forEach((car) => {
                         car.coordinates = eval(car.coordinates)
                         var lon = car.coordinates[0]
                         var lat = car.coordinates[1]
@@ -339,7 +346,7 @@ module.exports = function(app) {
                 }
             })
 
-            response.on('error', function() {
+            response.on('error', () => {
                 console.log(new Date().toString() + ' : Error getting car2go data.')
                 db.car2go.length = 0
             })
@@ -350,7 +357,7 @@ module.exports = function(app) {
     setInterval(getCar2GoData, 1000 * 60)
 
     // Data JSON REST endpoint
-    app.get('/data.json', function(req, res) {
+    app.get('/data.json', (req, res) => {
         var data = {
             bikeshare: db.bikeshare,
             busses:    [db.south, db.toUSt, db.G8West],
@@ -365,7 +372,7 @@ module.exports = function(app) {
         res.send(data)
     })
 
-    app.get('/work.json', function(req, res) {
+    app.get('/work.json', (req, res) => {
         var data = {
             busses: [db.G8East]
         }
