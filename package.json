@@ -8,9 +8,5 @@
     "forecast.io": "0.0.9",
     "lodash": "3.6.*",
     "xml2js": "0.4.*"
-  },
-  "engines": {
-    "node": "0.10.x",
-    "npm": "1.2.x"
   }
 }
