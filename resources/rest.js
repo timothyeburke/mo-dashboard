@@ -1,18 +1,20 @@
-var http     = require('http')
-var https    = require('https')
-var Forecast = require('forecast.io')
-var xml      = require('xml2js')
-var _        = require('lodash')
+const http     = require('http')
+const https    = require('https')
+const Forecast = require('forecast.io')
+const xml      = require('xml2js')
+const _        = require('lodash')
 
-var keys = JSON.parse(process.env.WMATA_API_KEYS)
+const keys = JSON.parse(process.env.WMATA_API_KEYS)
 
 function getWmataApiKey() {
-    var key = keys[Math.floor(Math.random() * keys.length)]
-    return '&api_key=' + key + '&subscription-key=' + key
+    const key = keys[Math.floor(Math.random() * keys.length)]
+    return `&api_key=${key}&subscription-key=${key}`
 }
 
 module.exports = function(app) {
-    var db = {
+    'use strict';
+
+    const db = {
         south: {
             Predictions: [],
             StopName: ''
@@ -48,7 +50,7 @@ module.exports = function(app) {
         weather: {}
     }
 
-    var bbox = {
+    const bbox = {
         westLon:  -77.012500,
         eastLon:  -76.997900,
         southLat:  38.908567,
@@ -61,22 +63,22 @@ module.exports = function(app) {
 
     function getBusPositions() {
         function fetchPositions() {
-            var options = {
+            const options = {
                 hostname: 'api.wmata.com',
                 port: 443,
-                path: '/Bus.svc/json/jBusPositions?RouteID&Lat=38.9155&Lon=-77.0050&Radius=1600' + getWmataApiKey(),
+                path: `/Bus.svc/json/jBusPositions?RouteID&Lat=38.9155&Lon=-77.0050&Radius=1600${getWmataApiKey()}`,
                 method: 'GET'
             }
 
-            var data = ''
-            var request = https.get(options, (response) => {
+            let data = ''
+            https.get(options, (response) => {
                 response.on('data', (d) => {
                     data += d
                 })
 
                 response.on('end', () => {
                     try {
-                        var busses = JSON.parse(data)
+                        const busses = JSON.parse(data)
 
                         db.liveBusses.length = 0
                         busses.BusPositions.forEach((bus) => {
@@ -94,7 +96,7 @@ module.exports = function(app) {
                 })
 
                 response.on('error', () => {
-                    console.log(new Date().toString() + ' : Error getting live bus data.')
+                    console.log(`${new Date().toString()} : Error getting live bus data.`)
                 })
             })
         }
@@ -106,21 +108,21 @@ module.exports = function(app) {
     setInterval(getBusPositions, 1000 * 10)
 
     function getBusPredictions() {
-        var errorObject = {
+        const errorObject = {
             Predictions: [],
             StopName: 'Error fetching bus data.'
         }
 
         function fetchPredictions(stop, direction) {
-            var options = {
+            const options = {
                 hostname: 'api.wmata.com',
                 port: 443,
-                path: '/NextBusService.svc/json/jPredictions?StopID=' + stop + getWmataApiKey(),
+                path: `/NextBusService.svc/json/jPredictions?StopID=${stop}${getWmataApiKey()}`,
                 method: 'GET'
             }
 
-            var data = ''
-            var request = https.get(options, (response) => {
+            let data = ''
+            https.get(options, (response) => {
                 response.on('data', (d) => {
                     data += d
                 })
@@ -137,13 +139,11 @@ module.exports = function(app) {
                 })
 
                 response.on('error', () => {
-                    console.log(new Date().toString() + ' : Error getting bus data.')
+                    console.log(`${new Date().toString()} : Error getting bus data.`)
                 })
             })
-            request.end()
         }
         fetchPredictions(1001624, 'south')
-        // fetchPredictions(1001620, 'north') // P6 North - not really needed
         fetchPredictions(1001425, 'toUSt')
         fetchPredictions(1001715, 'G8West')
         fetchPredictions(1003467, 'G8East')
@@ -152,15 +152,15 @@ module.exports = function(app) {
     setInterval(getBusPredictions, 1000 * 25)
 
     function getIncidents() {
-        var options = {
+        const options = {
             hostname: 'api.wmata.com',
             port: 443,
-            path: '/Incidents.svc/json/Incidents?' + getWmataApiKey(),
+            path: `/Incidents.svc/json/Incidents?${getWmataApiKey()}`,
             method: 'GET'
         }
 
-        var temp = ''
-        var request = https.get(options, (response) => {
+        let temp = ''
+        https.get(options, (response) => {
             response.on('data', (d) => {
                 temp += d
             })
@@ -171,12 +171,11 @@ module.exports = function(app) {
                     db.incidents.forEach((incident) => {
                         incident.affected = _.compact(incident.LinesAffected.split(''))
                         incident.Description = _.trim(incident.Description.replace(/(Blue|Orange|Red|Silver|Green|Yellow) Line\:/ig, ''))
-                        if (incident.Description.indexOf('.') != -1) {
-                            incident.Description = incident.Description.split('.')[0] + '.'
+                        if (incident.Description.indexOf('.') !== -1) {
+                            incident.Description = `${incident.Description.split('.')[0]}.`
                         }
                     })
                 } catch (err) {
-                    // db.incidents = []
                 }
                 if (db.incidents === undefined) {
                     db.incidents = []
@@ -184,21 +183,19 @@ module.exports = function(app) {
             })
 
             response.on('error', () => {
-                // db.incidents = []
-                console.log(new Date().toString() + ' : Error getting incident data.')
+                console.log(`${new Date().toString()} : Error getting incident data.`)
             })
         })
-        request.end()
     }
     getIncidents()
     setInterval(getIncidents, 1000 * 60)
 
     function getWeather() {
-        var lon = -77.0033354
-        var lat =  38.9152131
-        var forecast_key = '2cb1727e2157365c87d67c621ec1bf43'
+        const lon = -77.0033354
+        const lat =  38.9152131
+        const forecast_key = '2cb1727e2157365c87d67c621ec1bf43'
 
-        var forecast = new Forecast({
+        const forecast = new Forecast({
             APIKey: forecast_key
         })
 
@@ -206,6 +203,7 @@ module.exports = function(app) {
             if (err) {
                 console.log(new Date().toString() + ' : ' + err)
                 db.weather = {}
+                return
             }
             data.currently.low = _.min(data.hourly.data, (hour) => {
                 return hour.temperature
@@ -221,15 +219,15 @@ module.exports = function(app) {
 
     function getTrainPredictions() {
         function fetchPredictions(station) {
-            var options = {
+            const options = {
                 hostname: 'api.wmata.com',
                 port: 443,
-                path: '/StationPrediction.svc/json/GetPrediction/' + station + '?' + getWmataApiKey(),
+                path: `/StationPrediction.svc/json/GetPrediction/${station}?${getWmataApiKey()}`,
                 method: 'GET'
             }
 
-            var temp = ''
-            var request = https.get(options, (response) => {
+            let temp = ''
+            https.get(options, (response) => {
                 response.on('data', (d) => {
                     temp += d
                 })
@@ -238,23 +236,20 @@ module.exports = function(app) {
                     try {
                         db[station].Predictions = JSON.parse(temp).Trains
                         db[station].Predictions.forEach((train) => {
-                            if (train.Line != 'RD' && train.Line != 'GR' &&
-                                train.Line != 'YL' && train.Line != 'SV' &&
-                                train.Line != 'SV' && train.Line != 'OR') {
+                            if (train.Line !== 'RD' && train.Line !== 'GR' &&
+                                train.Line !== 'YL' && train.Line !== 'SV' &&
+                                train.Line !== 'SV' && train.Line !== 'OR') {
                                 train.Line = ''
                             }
                         })
                     } catch (err) {
-                        // db[station].Predictions = []
                     }
                 })
 
                 response.on('error', () => {
-                    console.log(new Date().toString() + ' : Error getting train data.')
-                    // db[station].Predictions = []
+                    console.log(`${new Date().toString()} : Error getting train data.`)
                 })
             })
-            request.end()
         }
         fetchPredictions('B35')
         fetchPredictions('B04')
@@ -267,11 +262,11 @@ module.exports = function(app) {
         function processBikeshareXML(data) {
             db.bikeshare.length = 0
             xml.parseString(data, (err, result) => {
-                var stations = result.stations.station
+                const stations = result.stations.station
                 stations.forEach((station) => {
-                    var id = station.id[0]
-                    var lon = station.long[0]
-                    var lat = station.lat[0]
+                    const id = station.id[0]
+                    const lon = station.long[0]
+                    const lat = station.lat[0]
 
                     if (isInBbox(lon, lat, bbox.westLon, bbox.eastLon, bbox.southLat, bbox.northLat)) {
                         db.bikeshare.push({
@@ -289,15 +284,15 @@ module.exports = function(app) {
             })
         }
 
-        var options = {
+        const options = {
             hostname: 'www.capitalbikeshare.com',
             port: 443,
             path: '/data/stations/bikeStations.xml',
             method: 'GET'
         }
 
-        var temp = ''
-        var request = https.get(options, (response) => {
+        let temp = ''
+        https.get(options, (response) => {
             response.on('data', (d) => {
                 temp += d
             })
@@ -307,7 +302,7 @@ module.exports = function(app) {
             })
 
             response.on('error', (err) => {
-                console.log(new Date().toString() + ' : Error getting Bikeshare data.')
+                console.log(`${new Date().toString()} : Error getting Bikeshare data.`)
             })
         })
     }
@@ -315,15 +310,15 @@ module.exports = function(app) {
     setInterval(getBikeshareData, 1000 * 60)
 
     function getCar2GoData() {
-        var options = {
+        const options = {
             hostname: 'www.car2go.com',
             port: 443,
             path: '/api/v2.0/vehicles?loc=Washington%20DC&format=json',
             method: 'GET'
         }
 
-        var temp = ''
-        var request = https.get(options, (response) => {
+        let temp = ''
+        https.get(options, (response) => {
             response.on('data', (d) => {
                 temp += d
             })
@@ -347,39 +342,33 @@ module.exports = function(app) {
             })
 
             response.on('error', () => {
-                console.log(new Date().toString() + ' : Error getting car2go data.')
+                console.log(`${new Date().toString()} : Error getting car2go data.`)
                 db.car2go.length = 0
             })
         })
-        request.end()
     }
     getCar2GoData()
     setInterval(getCar2GoData, 1000 * 60)
 
-    // Data JSON REST endpoint
     app.get('/data.json', (req, res) => {
-        var data = {
-            bikeshare: db.bikeshare,
+        res.contentType('application/json')
+        res.send({
+            bikeshare:  db.bikeshare,
             busses:    [db.south, db.toUSt, db.G8West],
-            car2go:    db.car2go,
-            incidents: db.incidents,
+            car2go:     db.car2go,
+            incidents:  db.incidents,
             liveBusses: db.liveBusses,
             trains:    [db.B35, db.B04, db.E02],
-            weather:   db.weather
-        }
-
-        res.contentType('application/json')
-        res.send(data)
+            weather:    db.weather
+        })
     })
 
     app.get('/work.json', (req, res) => {
-        var data = {
-            busses: [db.G8East]
-        }
-
         res.header('Access-Control-Allow-Origin', '*')
         res.header('Access-Control-Allow-Headers', 'X-Requested-With')
         res.contentType('application/json')
-        res.send(JSON.stringify(data, null, 4))
+        res.send(JSON.stringify(data = {
+            busses: [db.G8East]
+        }, null, 4))
     })
 }
