@@ -169,7 +169,7 @@ module.exports = function(app) {
                 try {
                     db.incidents = JSON.parse(temp).Incidents
                     db.incidents.forEach((incident) => {
-                        incident.affected = _.compact(incident.LinesAffected.split(''))
+                        incident.affected = _.compact(incident.LinesAffected.split(';'))
                         incident.Description = _.trim(incident.Description.replace(/(Blue|Orange|Red|Silver|Green|Yellow) Line\:/ig, ''))
                         if (incident.Description.indexOf('.') !== -1) {
                             incident.Description = `${incident.Description.split('.')[0]}.`
