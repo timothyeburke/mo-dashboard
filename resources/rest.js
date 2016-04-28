@@ -146,10 +146,9 @@ module.exports = function(app) {
         fetchPredictions(1001624, 'south')
         fetchPredictions(1001425, 'toUSt')
         fetchPredictions(1001715, 'G8West')
-        fetchPredictions(1003467, 'G8East')
     }
     getBusPredictions()
-    setInterval(getBusPredictions, 1000 * 25)
+    setInterval(getBusPredictions, 1000 * 30)
 
     function getIncidents() {
         const options = {
@@ -256,7 +255,7 @@ module.exports = function(app) {
         fetchPredictions('E02')
     }
     getTrainPredictions()
-    setInterval(getTrainPredictions, 1000 * 60)
+    setInterval(getTrainPredictions, 1000 * 90)
 
     function getBikeshareData() {
         function processBikeshareXML(data) {
@@ -361,14 +360,5 @@ module.exports = function(app) {
             trains:    [db.B35, db.B04, db.E02],
             weather:    db.weather
         })
-    })
-
-    app.get('/work.json', (req, res) => {
-        res.header('Access-Control-Allow-Origin', '*')
-        res.header('Access-Control-Allow-Headers', 'X-Requested-With')
-        res.contentType('application/json')
-        res.send(JSON.stringify(data = {
-            busses: [db.G8East]
-        }, null, 4))
     })
 }
