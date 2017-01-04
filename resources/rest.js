@@ -284,9 +284,9 @@ module.exports = function(app) {
         }
 
         const options = {
-            hostname: 'www.capitalbikeshare.com',
+            hostname: 'feeds.capitalbikeshare.com',
             port: 443,
-            path: '/data/stations/bikeStations.xml',
+            path: '/stations/stations.xml',
             method: 'GET'
         }
 
